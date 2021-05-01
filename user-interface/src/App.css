@@ -1,0 +1,16 @@
+body {
+    background-color: #121212;
+}
+
+/* Navigation Header */
+nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-top: 10px;
+}
+
+    nav .navLink {
+        color: white;
+        margin: 0 15px;
+    }
