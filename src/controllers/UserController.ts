@@ -4,6 +4,7 @@ import { User } from "models/user";
 import Token from "../auth/token";
 import UserRepository from "../repositories/UserRepository";
 import { Credentials } from "auth/auth";
+import { ResetPassword } from "../types/models/resetpassword";
 
 class UserController {
   private static validateAccess(
@@ -53,6 +54,27 @@ class UserController {
         .takeover();
     }
   }
+
+    public async resetPassword(request, h): Promise<Hapi.ServerResponse> {
+        try {
+            const credentials: Credentials = request.auth.credentials;
+            const update: ResetPassword = request.payload;
+
+            const userId: string = request.params.userId;
+            const user: User = await UserRepository.getById(userId);
+
+            UserController.validateAccess(credentials, user);
+
+            const updated: User = await UserRepository.resetPassword(update, userId);
+
+            return h.response(updated);
+        } catch (error) {
+            return h
+                .response({ status: "error", error: error.message })
+                .code(403)
+                .takeover();
+        }
+    }
 
   public async get(request, h): Promise<Hapi.ServerResponse> {
     try {

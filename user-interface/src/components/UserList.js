@@ -1,4 +1,4 @@
-import { Container, CssBaseline, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Button, Container, CssBaseline, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Check as CheckIcon, Edit as EditIcon, NotInterested as NotInterestedIcon } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
@@ -44,21 +44,29 @@ function formatAdmin(pIsAdmin) {
     }
 }
 
+function formatBirthYear(pBirthYear) {
+    return new Date(pBirthYear).getFullYear();
+}
+
 
 export default function UserList() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
+    const [isStaleData, setIsStaleData] = useState(true);
 
     // User Dialog based off of https://abdevelops.medium.com/how-to-build-a-reusable-modal-component-in-material-ui-675390c96e87
     const [targetUser, setTargetUser] = useState(null);
     const [userDialogOpen, setUserDialogOpen] = useState(false);
+
     const handleDialogOpen = (userId) => {
         setTargetUser(userId);
         setUserDialogOpen(true);
     }
 
-    const handleDialogClose = () => {
+    const handleDialogClose = (refresh) => {
+        setTargetUser(null);
         setUserDialogOpen(false);
+        setIsStaleData(refresh);
     }
 
     // Edit action item based on https://codesandbox.io/s/material-table-with-edit-action-g642k?file=/demo.js
@@ -68,21 +76,31 @@ export default function UserList() {
 
     // based on https://www.robinwieruch.de/react-hooks-fetch-data
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await fetch('http://localhost:5000/user', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${getToken()}`
-                },
-            }).then(response => response.json());
-            setUsers(result);
-        };
-        fetchData();
-    }, []);
+        if (isStaleData) {
+            const fetchData = async () => {
+                const result = await fetch('http://localhost:5000/user', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${getToken()}`
+                    },
+                }).then(response => response.json());
+                setUsers(result);
+            };
+            fetchData();
+            setIsStaleData(false);
+        }
+    }, [isStaleData]);
 
     return (
         <Container component="main" maxWidth="xl">
             <CssBaseline />
+            <header>
+                <nav>
+                    <Button href="/ResetPassword" color="primary" className="navLink">
+                        Reset Your Password
+                    </Button>
+                </nav>
+            </header>
             <TableContainer component={Paper} className={classes.tableContainer}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
@@ -107,8 +125,8 @@ export default function UserList() {
                                 <TableCell>{u.lastName}</TableCell>
                                 <TableCell>{u.email}</TableCell>
                                 <TableCell>{formatAdmin(u.admin)}</TableCell>
-                                <TableCell align="right">1997 {u.birthyear}</TableCell>
-                                <TableCell>orange {u.favoritecolor}</TableCell>
+                                <TableCell align="right">{formatBirthYear(u.birthYear)}</TableCell>
+                                <TableCell>{u.favoriteColor}</TableCell>
                                 <TableCell align="right">
                                     <IconButton onClick={() => editUser(u._id)}>
                                         <EditIcon color="primary" />
@@ -120,7 +138,8 @@ export default function UserList() {
                 </Table>
             </TableContainer>
 
-            <UserDialog isOpen={userDialogOpen} handleClose={handleDialogClose} user={targetUser} />
+            {/* This is the source of the "findDOMNode is deprecated in StrictMode" warning due to material-ui not having updated their framework to not use findDOMNode */}
+            <UserDialog isOpen={userDialogOpen} handleClose={handleDialogClose} userId={targetUser} />
         </Container>
     );
-};
+}

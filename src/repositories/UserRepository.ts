@@ -1,6 +1,7 @@
 import { User } from "models/user";
 import bcrypt from "bcryptjs";
 import UserModel from "../models/users/user";
+import { ResetPassword } from "../types/models/resetpassword";
 
 class UserRepository {
   private async hashPassword(password): Promise<string> {
@@ -28,6 +29,24 @@ class UserRepository {
       });
     });
   }
+
+    public async resetPassword(update: ResetPassword, userId: string): Promise<User> {
+        return new Promise(async (resolve, reject) => {
+            if (update.newPassword !== update.confirmPassword) {
+                reject("Passwords do not match. Try again.");
+            }
+
+            const hashedPassword: string = await this.hashPassword(update.newPassword);
+
+            UserModel.updateOne({ _id: userId }, { $set: { password: hashedPassword } }, (error, writeResult: User) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(writeResult);
+                }
+            });
+        });
+    }
 
   public async doesExist(user: User): Promise<boolean> {
     return new Promise(resolve => {

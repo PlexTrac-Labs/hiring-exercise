@@ -8,8 +8,8 @@ export default function getRoutes(server: Hapi.Server): void {
     method: "GET",
     path: "/user/{userId}",
     options: {
-      auth: false,
-      // auth: "jwt",
+      //auth: false,
+       auth: "jwt",
       validate: {
         params: {
           userId: Joi.string().required()
@@ -24,8 +24,8 @@ export default function getRoutes(server: Hapi.Server): void {
     method: "GET",
     path: "/user",
     options: {
-      auth: false
-      // auth: "jwt"
+      //auth: false
+       auth: "jwt"
     },
     handler: UserController.list
   });
@@ -34,8 +34,8 @@ export default function getRoutes(server: Hapi.Server): void {
     method: "DELETE",
     path: "/user/{userId}",
     options: {
-      auth: false,
-      // auth: "jwt",
+      //auth: false,
+       auth: "jwt",
       validate: {
         params: {
           userId: Joi.string().required()
@@ -50,8 +50,8 @@ export default function getRoutes(server: Hapi.Server): void {
     method: "PUT",
     path: "/user/{userId}",
     options: {
-      auth: false,
-      // auth: "jwt",
+      //auth: false,
+       auth: "jwt",
       validate: {
         params: {
           userId: Joi.string().required()
@@ -60,7 +60,9 @@ export default function getRoutes(server: Hapi.Server): void {
           username: Joi.string(),
           firstName: Joi.string(),
           lastName: Joi.string(),
-          email: Joi.string()
+          email: Joi.string(),
+          birthYear: Joi.string(),
+          favoriteColor: Joi.string()
         },
         failAction
       }
@@ -79,11 +81,34 @@ export default function getRoutes(server: Hapi.Server): void {
           firstName: Joi.string().required(),
           lastName: Joi.string().required(),
           email: Joi.string().required(),
-          password: Joi.string().required()
+          password: Joi.string().required(),
+          birthYear: Joi.string().required(),
+          favoriteColor: Joi.string().required()
         },
         failAction
       }
     },
     handler: UserController.create
   });
+
+    server.route({
+        method: "PUT",
+        path: "/user/{userId}/reset_password",
+        options: {
+            //auth: false,
+             auth: "jwt",
+            validate: {
+                params: {
+                    userId: Joi.string().required()
+                },
+                payload: {
+                    currentPassword: Joi.string(),
+                    newPassword: Joi.string(),
+                    confirmPassword: Joi.string()
+                },
+                failAction
+            }
+        },
+        handler: UserController.resetPassword
+    });
 }

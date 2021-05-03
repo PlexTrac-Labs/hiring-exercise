@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './components/Login';
+import ResetPassword from './components/ResetPassword';
 import UserList from './components/UserList';
 
 function getToken() {
@@ -11,10 +12,12 @@ function getToken() {
 }
 
 export default function App() {
-    //const classes = useStyles;
-
     function setToken(userToken) {
+        console.log(userToken);
         sessionStorage.setItem('token', userToken.auth_token);
+
+        // Storing the user's _id here so we can access it on the password reset page. Don't think that it's the best place to keep it, but works for what we need here.
+        sessionStorage.setItem('_id', userToken.user._id);
         window.location.reload();
     }
 
@@ -29,6 +32,7 @@ export default function App() {
     return (
         <div>
             <Switch>
+                <Route path="/ResetPassword" component={ResetPassword} />
                 <Route path="/UserList" component={UserList} />
                 <Route path="/Login" component={Login} />
                 <Route path="/" component={UserList} />
