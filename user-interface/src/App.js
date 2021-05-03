@@ -13,7 +13,6 @@ function getToken() {
 
 export default function App() {
     function setToken(userToken) {
-        console.log(userToken);
         sessionStorage.setItem('token', userToken.auth_token);
 
         // Storing the user's _id here so we can access it on the password reset page. Don't think that it's the best place to keep it, but works for what we need here.

@@ -68,8 +68,6 @@ export default function UserDialog(props) {
             birthYear: user.birthYear.toString(),
             favoriteColor: user.favoriteColor
         };
-        console.log(url);
-        console.log(body);
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -78,7 +76,6 @@ export default function UserDialog(props) {
             },
             body: JSON.stringify(body)
         }).then(props.handleClose(true))
-            .then(console.log("PUT Success!"))
             .catch(err => console.log(err));
     }
 

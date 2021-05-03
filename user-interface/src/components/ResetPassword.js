@@ -60,8 +60,6 @@ export default function ResetPassword() {
 
     async function resetPassword(body) {
         const url = `http://localhost:5000/user/${getUserId()}/reset_password`;
-        console.log(url);
-        console.log(body);
         return fetch(url, {
             method: 'PUT',
             headers: {
