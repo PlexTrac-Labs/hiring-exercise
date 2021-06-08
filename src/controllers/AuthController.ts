@@ -7,7 +7,7 @@ import TokenImpl from "../auth/token";
 import { Login } from "responses/responses";
 
 class AuthController {
-  private validateUser = async (
+  public validateUser = async (
     username: string,
     password: string
   ): Promise<User | never> => {

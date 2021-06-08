@@ -7,10 +7,17 @@ import { options } from "./config";
 const HOST = process.env.host || "localhost";
 const PORT = process.env.port || 5000;
 const DATABASE = process.env.database || "mongodb://localhost:27017/local"; // todo: dockerize
-console.log(DATABASE);
 Mongoose.connect(DATABASE);
 
-const server: Hapi.Server = new Hapi.Server({ host: HOST, port: PORT });
+const server: Hapi.Server = new Hapi.Server({
+  host: HOST,
+  port: PORT,
+  routes: {
+    cors: {
+      origin: ["*"] // an array of origins or 'ignore'
+    }
+  }
+});
 
 async function start(): Promise<void> {
   try {

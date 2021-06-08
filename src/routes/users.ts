@@ -27,6 +27,7 @@ export default function getRoutes(server: Hapi.Server): void {
       auth: false
       // auth: "jwt"
     },
+
     handler: UserController.list
   });
 
@@ -48,6 +49,25 @@ export default function getRoutes(server: Hapi.Server): void {
 
   server.route({
     method: "PUT",
+    path: "/password/{userId}",
+    options: {
+      auth: false,
+      validate: {
+        params: {
+          userId: Joi.string().required()
+        },
+        payload: {
+          currentPassword: Joi.string(),
+          newPassword: Joi.string()
+        },
+        failAction
+      }
+    },
+    handler: UserController.updatePassword
+  });
+
+  server.route({
+    method: "PUT",
     path: "/user/{userId}",
     options: {
       auth: false,
@@ -60,7 +80,9 @@ export default function getRoutes(server: Hapi.Server): void {
           username: Joi.string(),
           firstName: Joi.string(),
           lastName: Joi.string(),
-          email: Joi.string()
+          email: Joi.string(),
+          birthYear: Joi.number(),
+          favColor: Joi.string()
         },
         failAction
       }
@@ -79,7 +101,9 @@ export default function getRoutes(server: Hapi.Server): void {
           firstName: Joi.string().required(),
           lastName: Joi.string().required(),
           email: Joi.string().required(),
-          password: Joi.string().required()
+          password: Joi.string().required(),
+          birthYear: Joi.number().required(),
+          favColor: Joi.string().required()
         },
         failAction
       }

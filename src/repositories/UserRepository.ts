@@ -18,6 +18,10 @@ class UserRepository {
   }
 
   public async update(update: User, userId: string): Promise<User> {
+    if (update.password) {
+      update.password = await this.hashPassword(update.password);
+    }
+
     return new Promise((resolve, reject) => {
       UserModel.update({ _id: userId }, update, (error, writeResult: User) => {
         if (error) {
