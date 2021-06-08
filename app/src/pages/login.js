@@ -68,7 +68,7 @@ const Login = () => {
                         defaultValue=""
                     />
                     <Controller
-                        render={({ field }) => <TextField {...field} className={classes.textField} label='password' error={errors.password ? true : false} variant='outlined' placeholder='password' helperText={errors?.password?.message} InputLabelProps={{ shrink: true, }} />}
+                        render={({ field }) => <TextField {...field} className={classes.textField} label='password' type='password' error={errors.password ? true : false} variant='outlined' placeholder='password' helperText={errors?.password?.message} InputLabelProps={{ shrink: true, }} />}
                         name="password"
                         control={control}
                         defaultValue=""
