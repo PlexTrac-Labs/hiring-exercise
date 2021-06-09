@@ -80,32 +80,32 @@ const User = () => {
                     <FormContainer>
                         <form onSubmit={handleSubmit(onSave)} className={classes.form}>
                             <Controller
-                                render={({ field }) => <TextField {...field} className={classes.textField} variant='outlined' placeholder='first name' helperText={errors?.firstName?.message} label='first name' InputLabelProps={{ shrink: true, }} />}
+                                render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} variant='outlined' placeholder='first name' helperText={errors?.firstName?.message} label='first name' InputLabelProps={{ shrink: true, }} />}
                                 name="firstName"
                                 control={control}
                                 defaultValue={singleUser.firstName}
                             />
 
                             <Controller
-                                render={({ field }) => <TextField {...field} className={classes.textField} variant='outlined' placeholder='last name' helperText={errors?.lastName?.message} label='last name' InputLabelProps={{ shrink: true, }} />}
+                                render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} variant='outlined' placeholder='last name' helperText={errors?.lastName?.message} label='last name' InputLabelProps={{ shrink: true, }} />}
                                 name="lastName"
                                 control={control}
                                 defaultValue={singleUser.lastName}
                             />
                             <Controller
-                                render={({ field }) => <TextField {...field} className={classes.textField} variant='outlined' placeholder='email' helperText={errors?.email?.message} label='email' InputLabelProps={{ shrink: true, }} />}
+                                render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} variant='outlined' placeholder='email' helperText={errors?.email?.message} label='email' InputLabelProps={{ shrink: true, }} />}
                                 name="email"
                                 control={control}
                                 defaultValue={singleUser.email}
                             />
                             <Controller
-                                render={({ field }) => <TextField {...field} className={classes.textField} variant='outlined' placeholder='favColor' helperText={errors?.favColor?.message} label='favorite color' InputLabelProps={{ shrink: true, }} />}
+                                render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} variant='outlined' placeholder='favColor' helperText={errors?.favColor?.message} label='favorite color' InputLabelProps={{ shrink: true, }} />}
                                 name="favColor"
                                 control={control}
                                 defaultValue={singleUser.favColor}
                             />
                             <Controller
-                                render={({ field }) => <TextField {...field} className={classes.textField} variant='outlined' placeholder='birthYear' helperText={errors?.birthYear?.message} label='birth year' InputLabelProps={{ shrink: true, }} />}
+                                render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} variant='outlined' placeholder='birthYear' helperText={errors?.birthYear?.message} label='birth year' InputLabelProps={{ shrink: true, }} />}
                                 name="birthYear"
                                 control={control}
                                 defaultValue={singleUser.birthYear}

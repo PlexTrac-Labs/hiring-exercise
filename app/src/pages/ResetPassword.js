@@ -70,7 +70,7 @@ const ResetPassword = () => {
                         defaultValue=""
                     />
                     <Controller
-                        render={({ field }) => <TextField {...field} className={classes.textField} error={errors.newPassword ? true : false} variant='outlined' label='new password' placeholder='new password' helperText={errors?.newPassword?.message} InputLabelProps={{
+                        render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} error={errors.newPassword ? true : false} variant='outlined' label='new password' placeholder='new password' helperText={errors?.newPassword?.message} InputLabelProps={{
                             shrink: true,
                         }} />}
                         name="newPassword"
@@ -78,7 +78,7 @@ const ResetPassword = () => {
                         defaultValue=""
                     />
                     <Controller
-                        render={({ field }) => <TextField {...field} className={classes.textField} error={errors.confirmNewPassword ? true : false} variant='outlined' label='confirm new password' placeholder='confirm new password' helperText={errors?.confirmNewPassword?.message} InputLabelProps={{
+                        render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} error={errors.confirmNewPassword ? true : false} variant='outlined' label='confirm new password' placeholder='confirm new password' helperText={errors?.confirmNewPassword?.message} InputLabelProps={{
                             shrink: true,
                         }} />}
                         name="confirmNewPassword"

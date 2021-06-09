@@ -62,13 +62,13 @@ const Login = () => {
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 
                     <Controller
-                        render={({ field }) => <TextField {...field} className={classes.textField} label='username' error={errors.username ? true : false} variant='outlined' placeholder='username' helperText={errors?.username?.message} InputLabelProps={{ shrink: true, }} />}
+                        render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} label='username' error={errors.username ? true : false} variant='outlined' placeholder='username' helperText={errors?.username?.message} InputLabelProps={{ shrink: true, }} />}
                         name="username"
                         control={control}
                         defaultValue=""
                     />
                     <Controller
-                        render={({ field }) => <TextField {...field} className={classes.textField} label='password' type='password' error={errors.password ? true : false} variant='outlined' placeholder='password' helperText={errors?.password?.message} InputLabelProps={{ shrink: true, }} />}
+                        render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} label='password' type='password' error={errors.password ? true : false} variant='outlined' placeholder='password' helperText={errors?.password?.message} InputLabelProps={{ shrink: true, }} />}
                         name="password"
                         control={control}
                         defaultValue=""
