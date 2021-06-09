@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getSingleUser } from '../services'
 import { useParams } from 'react-router-dom'
-import { Box, Card, Typography, CardActions, Button, IconButton, TextField } from '@material-ui/core'
+import { Box, Typography, CardActions, Button, TextField } from '@material-ui/core'
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";

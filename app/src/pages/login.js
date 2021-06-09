@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { Controller } from "react-hook-form";
-import { TextField, Button, Box, Snackbar, Typography } from '@material-ui/core'
+import { TextField, Button, Snackbar, Typography } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import { authenticateUser } from '../services'

@@ -48,7 +48,7 @@ const ResetPassword = () => {
     const onSubmit = async data => {
         delete data.confirmNewPassword
         try {
-            let res = await resetPassword(user._id, data)
+            await resetPassword(user._id, data)
             reset(data)
             setSuccess(true)
         } catch (error) {
@@ -62,7 +62,7 @@ const ResetPassword = () => {
             <FormContainer>
                 <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
                     <Controller
-                        render={({ field }) => <TextField {...field} className={classes.textField} label="current password" error={errors.currentPassword ? true : false} placeholder='current password' helperText={errors?.currentPassword?.message}
+                        render={({ field }) => <TextField {...field} value={field.value} className={classes.textField} label="current password" error={errors.currentPassword ? true : false} placeholder='current password' helperText={errors?.currentPassword?.message}
                             InputLabelProps={{ shrink: true, }}
                             variant='outlined' />}
                         name="currentPassword"
