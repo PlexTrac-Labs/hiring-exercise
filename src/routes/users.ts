@@ -9,6 +9,7 @@ export default function getRoutes(server: Hapi.Server): void {
     path: "/user/{userId}",
     options: {
       auth: false,
+      cors: true,
       // auth: "jwt",
       validate: {
         params: {
@@ -24,6 +25,7 @@ export default function getRoutes(server: Hapi.Server): void {
     method: "GET",
     path: "/user",
     options: {
+      cors: true,
       auth: false
       // auth: "jwt"
     },
@@ -35,6 +37,7 @@ export default function getRoutes(server: Hapi.Server): void {
     path: "/user/{userId}",
     options: {
       auth: false,
+      cors: true,
       // auth: "jwt",
       validate: {
         params: {
@@ -51,6 +54,7 @@ export default function getRoutes(server: Hapi.Server): void {
     path: "/user/{userId}",
     options: {
       auth: false,
+      cors: true,
       // auth: "jwt",
       validate: {
         params: {
@@ -73,6 +77,7 @@ export default function getRoutes(server: Hapi.Server): void {
     path: "/user",
     options: {
       auth: false,
+      cors: true,
       validate: {
         payload: {
           username: Joi.string().required(),

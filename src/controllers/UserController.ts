@@ -108,7 +108,7 @@ class UserController {
       return h.response(users);
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error?.message || error })
         .code(400)
         .takeover();
     }

@@ -44,7 +44,9 @@
     "node": "13"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "@hapi/hapi": "18.4.0",
+    "axios": "^0.21.1",
     "bcryptjs": "2.4.3",
     "good": "8.1.2",
     "good-console": "8.0.0",

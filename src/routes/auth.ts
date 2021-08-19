@@ -9,6 +9,7 @@ export default function getRoutes(server: Hapi.Server): void {
     path: "/authenticate",
     options: {
       auth: false,
+      cors: true, // different port, different origin?
       validate: {
         payload: {
           username: Joi.string().required(),
