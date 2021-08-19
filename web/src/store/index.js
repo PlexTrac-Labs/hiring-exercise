@@ -10,6 +10,7 @@ export default new Vuex.Store({
   state: {
     authed: Boolean(localStorage.getItem("authed")) || false,
     theme: localStorage.getItem("theme") || "dark",
+    users: [],
     pageName: localStorage.getItem("pageName") || ""
   },
   mutations: {
@@ -33,11 +34,15 @@ export default new Vuex.Store({
     LOGOUT: function(state) {
       state.authed = false;
       localStorage.setItem("authed", false);
+    },
+    SET_USERS: function(state, users) {
+      state.users = users;
     }
   },
   actions: {
-    async getUsers({}, http) {
+    async getUsers({ commit }, http) {
       // eslint-disable-line
+      // let caller handle error?
       const res = await http({
         method: "get",
         url: "http://localhost:5000/user",
@@ -46,7 +51,8 @@ export default new Vuex.Store({
           "Content-Type": "application/json"
         }
       });
-      console.log(res);
+      commit("SET_USERS", res.data);
+      // console.log(res.data);
     }
   },
   modules: {}
