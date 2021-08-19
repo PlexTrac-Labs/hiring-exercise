@@ -1,32 +1,51 @@
 <template>
   <v-container>
     <v-row>
-      <!-- users and stuff
-      {{users}} -->
-      <template>
-        <v-data-table
-          :headers="headers"
-          :items="users"
-          :items-per-page="10"
-          class="elevation-1"
-        >
-          <template v-slot:item.admin="{ item }">
-            <v-simple-checkbox
-              v-model="item.admin"
-              disabled
-            ></v-simple-checkbox>
-          </template>
-        </v-data-table>
-      </template>
+      <v-col cols="6">
+        <v-btn icon title="Add User" @click="overlay = !overlay">
+          <i class="fa-lg fas fa-user-plus" />
+        </v-btn>
+        <template>
+          <v-data-table
+            :headers="headers"
+            :items="users"
+            :items-per-page="10"
+            class="elevation-1"
+          >
+            <template v-slot:item.admin="{ item }">
+              <v-simple-checkbox
+                v-model="item.admin"
+                disabled
+              ></v-simple-checkbox>
+            </template>
+          </v-data-table>
+        </template>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-overlay absolute :value="overlay">
+        <user-overlay
+          v-on:close="overlay = false"
+          :opacity="1"
+          :user="{}"
+          :create="true"
+        />
+      </v-overlay>
     </v-row>
   </v-container>
 </template>
 
 <script>
+// import UsersOverlay from '@/views/userOverlay';
+let UserOverlay = require("@/views/userOverlay").default;
+
 export default {
   name: "Users",
-  components: {},
+  components: {
+    UserOverlay
+  },
   data: () => ({
+    overlay: false,
     headers: [
       { text: "Username", value: "username" },
       { text: "First Name", value: "firstName" },
@@ -43,38 +62,6 @@ export default {
       return this.$store.state.users;
     }
   },
-  methods: {
-    // async login(username, password) {
-    //   console.log("logging in with: ", username, password);
-    //   try {
-    //     this.loading = true;
-    //     // TODO: keep track of the returned auth_token for future requests
-    //     await this.$http({
-    //       method: "post",
-    //       url: "http://localhost:5000/authenticate",
-    //       data: {
-    //         username,
-    //         password // this is 100% not secure (with http) :) TODO: stop this?
-    //       },
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       }
-    //     });
-    //     this.$store.commit("LOGIN");
-    //     this.$router.push("/Landing");
-    //   } catch (err) {
-    //     console.error("ERROR LOGGING IN: ", err);
-    //     console.log(err.response.status);
-    //     const { status } = err.response;
-    //     if (status === 401) {
-    //       this.errorMessages = ["Incorrect Username or Password"];
-    //     } else {
-    //       this.errorMessages = [err.message]; // TODO: very user un-friendly error, but more useful than nothing :)
-    //     }
-    //   } finally {
-    //     this.loading = false;
-    //   }
-    // }
-  }
+  methods: {}
 };
 </script>
