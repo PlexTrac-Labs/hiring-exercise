@@ -69,8 +69,12 @@
         </v-row>
         <v-row justify="start">
           <v-col cols="auto">
-            <v-btn color="success" :disabled="!valid" @click="createUser()">
-              create
+            <v-btn
+              color="success"
+              :disabled="!valid"
+              @click="create ? createUser() : editUser()"
+            >
+              {{ submitText }}
             </v-btn>
           </v-col>
           <!-- <v-spacer/> -->
@@ -106,7 +110,11 @@ export default {
     ]
   }),
   created() {},
-  computed: {},
+  computed: {
+    submitText() {
+      return this.create ? "Create" : "Update";
+    }
+  },
   watch: {
     user: {
       immediate: true,
@@ -125,10 +133,33 @@ export default {
         this.confirmPasswordRule = ["Passwords Must Match"];
       }
     },
+    async editUser() {
+      // TODO: handle errors better...
+      try {
+        await this.$http({
+          method: "put",
+          url: `http://localhost:5000/user/${this.user._id}`,
+          data: {
+            username: this.user.username,
+            firstName: this.user.firstName,
+            lastName: this.user.lastName,
+            email: this.user.email
+          },
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        await this.$store.dispatch("getUsers", this.$http);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        this.emitClose();
+      }
+    },
     async createUser() {
       // TODO: handle errors better...
       try {
-        let res = await this.$http({
+        await this.$http({
           method: "post",
           url: "http://localhost:5000/user",
           data: {
@@ -142,7 +173,6 @@ export default {
             "Content-Type": "application/json"
           }
         });
-        console.log(res);
         await this.$store.dispatch("getUsers", this.$http);
       } catch (err) {
         console.error(err);
