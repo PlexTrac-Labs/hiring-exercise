@@ -71,7 +71,7 @@ export default {
       try {
         this.loading = true;
         // TODO: keep track of the returned auth_token for future requests
-        await this.$http({
+        const res = await this.$http({
           method: "post",
           url: "http://localhost:5000/authenticate",
           data: {
@@ -82,7 +82,7 @@ export default {
             "Content-Type": "application/json"
           }
         });
-        this.$store.commit("LOGIN");
+        this.$store.commit("LOGIN", res.data.auth_token);
         this.$router.push("/Landing");
         this.$store.commit("CHANGE_PAGE_NAME", "Landing");
       } catch (err) {

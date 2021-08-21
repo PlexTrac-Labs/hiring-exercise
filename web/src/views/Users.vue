@@ -123,7 +123,8 @@ export default {
           url: `http://localhost:5000/user/${this.itemToDelete._id}`,
           data: {},
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.authToken}`
           }
         });
         await this.$store.dispatch("getUsers", this.$http);

@@ -164,7 +164,8 @@ export default {
             favoriteColor: this.user.favoriteColor
           },
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.authToken}`
           }
         });
         await this.$store.dispatch("getUsers", this.$http);
@@ -190,7 +191,8 @@ export default {
             favoriteColor: this.user.favoriteColor
           },
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.authToken}`
           }
         });
         await this.$store.dispatch("getUsers", this.$http);

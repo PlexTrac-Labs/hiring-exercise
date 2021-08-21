@@ -8,6 +8,7 @@ const localStorage = window.localStorage;
 
 export default new Vuex.Store({
   state: {
+    authToken: localStorage.getItem("authToken") || null,
     authed: Boolean(localStorage.getItem("authed")) || false,
     theme: localStorage.getItem("theme") || "dark",
     users: [],
@@ -26,33 +27,37 @@ export default new Vuex.Store({
       state.pageName = pageName;
       localStorage.setItem("pageName", pageName);
     },
-    LOGIN: function(state) {
+    LOGIN: function(state, authToken) {
+      state.authToken = authToken;
       state.authed = true;
       // TODO: should probably do something better than this, but this makes dev much nicer :)
       localStorage.setItem("authed", true);
+      // definitely not secure, but again makes dev much nicer :)
+      localStorage.setItem("authToken", authToken);
     },
     LOGOUT: function(state) {
       state.authed = false;
+      state.authToken = null;
       localStorage.setItem("authed", false);
+      localStorage.setItem("authed", null);
     },
     SET_USERS: function(state, users) {
       state.users = users;
     }
   },
   actions: {
-    async getUsers({ commit }, http) {
-      // eslint-disable-line
+    async getUsers({ commit, state }, http) {
       // let caller handle error?
       const res = await http({
         method: "get",
         url: "http://localhost:5000/user",
         data: {},
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${state.authToken}`
         }
       });
       commit("SET_USERS", res.data);
-      // console.log(res.data);
     }
   },
   modules: {}

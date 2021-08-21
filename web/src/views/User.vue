@@ -163,7 +163,8 @@ export default {
             newPasswordConfirm: this.passwordConfirm
           },
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.$store.state.authToken}`
           }
         });
         this.currentPassword = "";
