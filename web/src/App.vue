@@ -81,6 +81,9 @@
       <h4 class="text-xs-right mt-0">
         {{ currentPage }}
       </h4>
+      <v-btn @click="logout" color="grey" v-if="$store.state.authed">
+        Logout
+      </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn icon v-on="on">
@@ -164,6 +167,11 @@ export default {
     },
     changePageName(page) {
       this.$store.commit("CHANGE_PAGE_NAME", page);
+    },
+    logout() {
+      this.$router.push(`/`);
+      this.$store.commit("CHANGE_PAGE_NAME", "");
+      this.$store.commit("LOGOUT");
     }
   },
 
