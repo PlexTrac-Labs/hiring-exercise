@@ -18,6 +18,11 @@ const routes = [
     path: "/users",
     name: "Users",
     component: require("@/views/Users").default
+  },
+  {
+    path: "/users/:id",
+    name: "User",
+    component: require("@/views/User").default
   }
 ];
 

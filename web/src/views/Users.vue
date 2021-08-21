@@ -11,6 +11,7 @@
             :items="users"
             :items-per-page="10"
             class="elevation-1"
+            @click:row="navigateToUser"
           >
             <template v-slot:item.admin="{ item }">
               <v-simple-checkbox
@@ -19,11 +20,11 @@
               ></v-simple-checkbox>
             </template>
             <template v-slot:item.actions="{ item }">
-              <v-icon small class="mr-2" @click="editItem(item)">
+              <v-icon small class="mr-2" @click.stop.prevent="editItem(item)">
                 <!-- probably not optimal to mix icon's, but this example was already done with google's icons so :shrug: -->
                 mdi-pencil
               </v-icon>
-              <v-icon small @click="deleteItem(item)">
+              <v-icon small @click.stop.prevent="deleteItem(item)">
                 mdi-delete
               </v-icon>
             </template>
@@ -47,8 +48,8 @@
           >
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="grey" plain @click="closeDelete">Cancel</v-btn>
-            <v-btn color="error" plain @click="deleteItemConfirm">Delete</v-btn>
+            <v-btn color="error" @click="deleteItemConfirm">Delete</v-btn>
+            <v-btn color="grey" @click="closeDelete">Cancel</v-btn>
             <v-spacer></v-spacer>
           </v-card-actions>
         </v-card>
@@ -108,6 +109,11 @@ export default {
     deleteItem(item) {
       this.itemToDelete = Object.assign({}, item);
       this.overlayDelete = true;
+    },
+    navigateToUser(user, other) {
+      console.log(other);
+      this.$router.push(`/users/${user._id}`);
+      this.$store.commit("CHANGE_PAGE_NAME", user.username);
     },
     async deleteItemConfirm() {
       // TODO: handle errors better...
