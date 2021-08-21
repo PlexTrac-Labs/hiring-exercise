@@ -47,6 +47,22 @@
         <v-row>
           <v-col>
             <v-text-field
+              v-model="user.birthYear"
+              label="Birth Year"
+              hint="Birth Year"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              v-model="user.favoriteColor"
+              label="Favorite Color"
+              hint="Favorite Color"
+            />
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
               v-model="user.password"
               v-if="create"
               label="Password"
@@ -143,7 +159,9 @@ export default {
             username: this.user.username,
             firstName: this.user.firstName,
             lastName: this.user.lastName,
-            email: this.user.email
+            email: this.user.email,
+            birthYear: this.user.birthYear,
+            favoriteColor: this.user.favoriteColor
           },
           headers: {
             "Content-Type": "application/json"
@@ -167,7 +185,9 @@ export default {
             password: this.user.password,
             firstName: this.user.firstName,
             lastName: this.user.lastName,
-            email: this.user.email
+            email: this.user.email,
+            birthYear: this.user.birthYear,
+            favoriteColor: this.user.favoriteColor
           },
           headers: {
             "Content-Type": "application/json"

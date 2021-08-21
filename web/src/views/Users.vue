@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="auto">
-        <v-btn icon title="Add User" @click="overlay = !overlay">
+        <v-btn icon title="Add User" @click="overlay = 'create'">
           <i class="fa-lg fas fa-user-plus" />
         </v-btn>
         <template>
@@ -10,6 +10,7 @@
             :headers="headers"
             :items="users"
             :items-per-page="10"
+            :sort-by="'username'"
             class="elevation-1"
             @click:row="navigateToUser"
           >
@@ -38,7 +39,7 @@
           v-on:close="overlay = false"
           :opacity="1"
           :user="overlayUser"
-          :create="!Boolean(overlayUser.username)"
+          :create="overlay === 'create'"
         />
       </v-overlay>
       <v-dialog v-model="overlayDelete" max-width="500px">
@@ -110,8 +111,7 @@ export default {
       this.itemToDelete = Object.assign({}, item);
       this.overlayDelete = true;
     },
-    navigateToUser(user, other) {
-      console.log(other);
+    navigateToUser(user) {
       this.$router.push(`/users/${user._id}`);
       this.$store.commit("CHANGE_PAGE_NAME", user.username);
     },
