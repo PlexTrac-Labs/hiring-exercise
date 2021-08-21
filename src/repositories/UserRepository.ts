@@ -17,6 +17,23 @@ class UserRepository {
     });
   }
 
+  public async changePassword(update: User, userId: string): Promise<User> {
+    const hashedPassword = await this.hashPassword(update.password);
+    return new Promise((resolve, reject) => {
+      UserModel.update(
+        { _id: userId },
+        { password: hashedPassword },
+        (error, writeResult: User) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(writeResult);
+          }
+        }
+      );
+    });
+  }
+
   public async update(update: User, userId: string): Promise<User> {
     return new Promise((resolve, reject) => {
       UserModel.update({ _id: userId }, update, (error, writeResult: User) => {

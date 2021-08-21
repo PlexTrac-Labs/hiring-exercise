@@ -20,18 +20,38 @@ class AuthController {
           if (err || !$user) {
             reject(err ? err : "Invalid Credentials");
           } else {
-            bcrypt.compare(password, $user.password, (err, isValid) => {
-              if (isValid) {
+            this.comparePasswords(password, $user.password)
+              .then(isValid => {
+                // throws if not valid
                 delete $user.password;
                 resolve($user);
-              } else {
-                reject("Invalid Credentials");
-              }
-            });
+              })
+              .catch(err => {
+                reject(err);
+              });
           }
         }
       );
     });
+  };
+
+  private comparePasswords = async (unencrypted, encrypted) => {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(unencrypted, encrypted, (err, isValid) => {
+        if (isValid) {
+          resolve(true);
+        } else {
+          reject(new Error("Invalid Credentials"));
+        }
+      });
+    });
+  };
+
+  public verifyPassword = async (
+    unencrypted,
+    encrypted
+  ): Promise<Hapi.ServerResponse> => {
+    return this.comparePasswords(unencrypted, encrypted);
   };
 
   public authenticate = async (request, h): Promise<Hapi.ServerResponse> => {

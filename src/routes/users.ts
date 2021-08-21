@@ -95,4 +95,23 @@ export default function getRoutes(server: Hapi.Server): void {
     },
     handler: UserController.create
   });
+
+  server.route({
+    method: "POST",
+    path: "/actions/changePassword",
+    options: {
+      auth: false,
+      cors: true,
+      validate: {
+        payload: {
+          userId: Joi.string().required(),
+          currentPassword: Joi.string().required(),
+          newPassword: Joi.string().required(),
+          newPasswordConfirm: Joi.string().required()
+        },
+        failAction
+      }
+    },
+    handler: UserController.changePassword
+  });
 }
