@@ -3,6 +3,7 @@ import getRoutes from "./routes";
 import Mongoose from "mongoose";
 import validate from "./auth/validation";
 import { options } from "./config";
+const Path = require("path");
 
 const HOST = process.env.host || "localhost";
 const PORT = process.env.port || 5000;
@@ -28,6 +29,7 @@ async function start(): Promise<void> {
       }
     });
 
+    await server.register(require("inert"));
     await server.register([require("hapi-auth-jwt2")]);
     server.auth.strategy("jwt", "jwt", {
       // todo: hide this somehow, is in one other place
