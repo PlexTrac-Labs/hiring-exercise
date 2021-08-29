@@ -1,4 +1,4 @@
-import { ILogin } from "../../models/Login/Login";
+import { Login } from "../../models/Login/Login";
 import axios from "axios";
 import { User } from "../../models/User/User";
 
@@ -8,7 +8,7 @@ export interface AuthResponse {
 }
 
 export interface IAuthService {
-  Login(login: ILogin): Promise<AuthResponse>;
+  Login(login: Login): Promise<AuthResponse>;
 }
 
 export class AuthService implements IAuthService {
@@ -18,7 +18,9 @@ export class AuthService implements IAuthService {
     this.baseUrl = baseUrl;
   }
 
-  public async Login(login: ILogin): Promise<AuthResponse> {
-    return await axios.post(this.baseUrl + "/authenticate", login);
+  public async Login(login: Login): Promise<AuthResponse> {
+    return await axios.post(this.baseUrl + "/authenticate", login).then(res => {
+      return res.data;
+    });
   }
 }

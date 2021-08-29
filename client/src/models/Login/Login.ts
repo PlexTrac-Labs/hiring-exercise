@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface ILogin {
-  Username: string;
-  Password: string;
+export interface Login {
+  username: string;
+  password: string;
 }

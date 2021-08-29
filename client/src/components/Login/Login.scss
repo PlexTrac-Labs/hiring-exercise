@@ -1,0 +1,34 @@
+.login-wrapper {
+  color: white;
+  text-align: center;
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px;
+
+    > * {
+      margin-top: 8px;
+    }
+
+    .username-input {
+      color: white;
+      width: 250px;
+      text-align: start;
+      input {
+        color: white;
+      }
+    }
+    .password-input {
+      color: white;
+      width: 250px;
+      input {
+        color: white;
+      }
+    }
+    .login-btn {
+      color: white;
+    }
+  }
+}
