@@ -1,0 +1,26 @@
+.userlist-wrapper {
+  height: 400px;
+  width: 100%;
+
+  .userlist-btn-contaienr {
+    .delete-btn {
+      background-color: red;
+      color: white;
+    }
+
+    .disabled-btn {
+      background-color: grey;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.userlist-table-header {
+  color: white;
+  text-align: center;
+}
+
+.userlist-table-column {
+  color: white;
+  text-align: center;
+}

@@ -3,6 +3,7 @@ import { User } from "../../models/User/User";
 
 export interface IUserService {
   GetUsers(): Promise<User[]>;
+  DeleteUser(id: string): Promise<User>;
 }
 
 export class UserService implements IUserService {
@@ -14,7 +15,12 @@ export class UserService implements IUserService {
 
   public async GetUsers(): Promise<User[]> {
     return await axios.get<User[]>(this.baseUrl + "/user").then(res => {
-      console.log("users: ", res.data);
+      return res.data;
+    });
+  }
+
+  public async DeleteUser(id: string): Promise<User> {
+    return await axios.delete<User>(this.baseUrl + `/user/${id}`).then(res => {
       return res.data;
     });
   }
