@@ -1,18 +1,18 @@
 .userlist-wrapper {
   height: 400px;
   width: 100%;
+  color: white;
+  padding: 0 8px;
+}
 
-  .userlist-btn-contaienr {
-    .delete-btn {
-      background-color: red;
-      color: white;
-    }
+.edit-btn {
+  font-size: large;
+  cursor: pointer;
+}
 
-    .disabled-btn {
-      background-color: grey;
-      cursor: not-allowed;
-    }
-  }
+.delete-btn {
+  font-size: large;
+  cursor: pointer;
 }
 
 .userlist-table-header {
@@ -23,4 +23,8 @@
 .userlist-table-column {
   color: white;
   text-align: center;
+}
+
+.link {
+  color: white;
 }

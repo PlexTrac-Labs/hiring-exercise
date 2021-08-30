@@ -21,6 +21,7 @@ export const Login: React.FC<Props> = props => {
       })
       .then(res => {
         props.setToken(res.auth_token);
+        ctx.setAccessToken(res.auth_token);
         ctx.user = res.user;
       });
   };
