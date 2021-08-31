@@ -12,5 +12,19 @@
       float: right;
       margin: 8px;
     }
+
+    .home-btn {
+      color: white !important;
+      display: inline;
+      float: left;
+      margin: 8px;
+    }
+  }
+
+  .password-reset-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 8px;
   }
 }

@@ -13,6 +13,8 @@ export const PasswordReset: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [confirmError, setConfirmError] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,25 +24,41 @@ export const PasswordReset: React.FC = () => {
       confirmPassword
     };
 
+    if (newPassword !== confirmPassword) {
+      setConfirmError("Passwords do not match.");
+      return;
+    }
+
     await ctx.authService
       .PasswordReset(id, request)
-      .then(async res => {
+      .then(async () => {
         if (ctx.user?._id === id) {
           ctx.user = await ctx.userService.GetUser(id);
         }
       })
-      .catch(err => {
-        console.log(err);
+      .catch(_ => {
+        setError("Failed to update password. Please try again.");
+        setCurrentPassword("");
       });
+  };
+
+  const clearErrors = () => {
+    setConfirmError("");
+    setError("");
   };
 
   return (
     <Card className="password-reset-wrapper" variant="outlined">
       <CardContent>
-        <form className="password-reset-form" onSubmit={handleSubmit}>
+        <form
+          className="password-reset-form"
+          onSubmit={handleSubmit}
+          onChange={() => clearErrors()}
+        >
           <TextField
             label="Current Password"
             type="password"
+            required={true}
             className="current-passsword-input password-input"
             InputLabelProps={{
               className: "password-input"
@@ -51,6 +69,7 @@ export const PasswordReset: React.FC = () => {
           <TextField
             label="New Password"
             type="password"
+            required={true}
             className="new-password-input password-input"
             InputLabelProps={{
               className: "password-input"
@@ -61,13 +80,19 @@ export const PasswordReset: React.FC = () => {
           <TextField
             label="Confirm Password"
             type="password"
+            required={true}
             className="confirm-password-input password-input"
             InputLabelProps={{
               className: "password-input"
             }}
+            error={!!confirmError}
+            helperText={confirmError}
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
+          <div className="error-container">
+            {error && <p className="error-message">* {error}</p>}
+          </div>
           <div className="form-btns">
             <Button
               className="cancel-btn form-btn"

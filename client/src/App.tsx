@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.scss";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import { Login } from "./components/Login/Login";
 import {
   AuthService,
@@ -13,6 +13,7 @@ import { UpdateUser } from "./components/UpdateUser/UpdateUser";
 import { Button } from "@material-ui/core";
 import { UserDetails } from "./components/UserDetails/UserDetails";
 import { PasswordReset } from "./components/PasswordReset/PasswordReset";
+import { Signout } from "./components/Signout/Signout";
 
 export const apiBaseUrl: string = "http://localhost:5000";
 
@@ -45,25 +46,22 @@ const App: React.FC = () => {
     return <Login setToken={setToken} />;
   }
 
-  const signout = () => {
-    Context.user = undefined;
-    Context.setAccessToken("");
-    setToken("");
-  };
-
   return (
     <div className="App">
       <Ctx.Provider value={Context}>
-        <div className="top-bar">
-          <Button
-            className="sign-out-btn"
-            variant="contained"
-            onClick={() => signout()}
-          >
-            Sign out
-          </Button>
-        </div>
         <BrowserRouter>
+          <div className="top-bar">
+            <Link to="/">
+              <Button className="home-btn" variant="outlined">
+                Home
+              </Button>
+            </Link>
+            <Link to="/signout">
+              <Button className="sign-out-btn" variant="contained">
+                Sign out
+              </Button>
+            </Link>
+          </div>
           <Switch>
             <Route exact path="/">
               <UsersList />
@@ -80,7 +78,15 @@ const App: React.FC = () => {
             <Route exact path="/passwordreset">
               <PasswordReset></PasswordReset>
             </Route>
+            <Route exact path="/signout">
+              <Signout setToken={setToken}></Signout>
+            </Route>
           </Switch>
+          <div className="password-reset-container">
+            <p>
+              Click <Link to="/passwordreset">here</Link> to reset password
+            </p>
+          </div>
         </BrowserRouter>
       </Ctx.Provider>
     </div>

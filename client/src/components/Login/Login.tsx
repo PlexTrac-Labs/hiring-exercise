@@ -11,6 +11,7 @@ export const Login: React.FC<Props> = props => {
   const ctx = React.useContext(Ctx);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,13 +24,21 @@ export const Login: React.FC<Props> = props => {
         props.setToken(res.auth_token);
         ctx.setAccessToken(res.auth_token);
         ctx.user = res.user;
+      })
+      .catch(_ => {
+        setPassword("");
+        setError("Login attempt failed. Please try again.");
       });
   };
 
   return (
     <div className="login-wrapper">
       <h1>Please Log In</h1>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+        onChange={() => setError("")}
+      >
         <TextField
           label="Username"
           type="text"
@@ -54,6 +63,9 @@ export const Login: React.FC<Props> = props => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
+        <div className="error-container">
+          {error && <p className="error-message">* {error}</p>}
+        </div>
         <Button type="submit" className="login-btn" variant="outlined">
           Login
         </Button>

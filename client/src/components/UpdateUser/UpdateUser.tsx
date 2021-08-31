@@ -20,6 +20,7 @@ export const UpdateUser: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [birthYear, setBirthYear] = useState<number>();
   const [favoriteColor, setFavoriteColor] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   useEffectAsync(async () => {
     await ctx.userService.GetUser(id).then(res => {
@@ -43,12 +44,17 @@ export const UpdateUser: React.FC = () => {
       favoriteColor
     };
 
-    await ctx.userService.UpdateUser(id, request).then(async res => {
-      if (ctx.user?._id === id) {
-        ctx.user = await ctx.userService.GetUser(id);
-      }
-      history.push("/");
-    });
+    await ctx.userService
+      .UpdateUser(id, request)
+      .then(async res => {
+        if (ctx.user?._id === id) {
+          ctx.user = await ctx.userService.GetUser(id);
+        }
+        history.goBack();
+      })
+      .catch(() => {
+        setError("Failed to update user. Please try again.");
+      });
   };
 
   return (
@@ -115,11 +121,14 @@ export const UpdateUser: React.FC = () => {
             value={favoriteColor}
             onChange={e => setFavoriteColor(e.target.value)}
           />
+          <div className="error-container">
+            {error && <p className="error-message">* {error}</p>}
+          </div>
           <div className="form-btns">
             <Button
               className="cancel-btn form-btn"
               variant="contained"
-              onClick={() => history.push("/")}
+              onClick={() => history.goBack()}
             >
               Cancel
             </Button>

@@ -120,7 +120,7 @@ export const UserDetails: React.FC = () => {
         className="back-btn"
         variant="outlined"
         color="primary"
-        onClick={() => history.push("/")}
+        onClick={() => history.goBack()}
       >
         Back
       </Button>
