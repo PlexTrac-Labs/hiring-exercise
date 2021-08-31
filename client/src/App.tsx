@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import { Login } from "./components/Login/Login";
+import { LoginComponent } from "./components/Login/Login";
 import {
   AuthService,
   IAuthService
@@ -17,7 +17,7 @@ import { Signout } from "./components/Signout/Signout";
 
 export const apiBaseUrl: string = "http://localhost:5000";
 
-interface IContext {
+export interface IContext {
   authService: IAuthService;
   userService: IUserService;
   user?: User;
@@ -36,14 +36,14 @@ const Context: IContext = {
   }
 };
 
-export const Ctx = React.createContext<IContext>(Context);
+export const Ctx = React.createContext<IContext>({} as IContext);
 
 const App: React.FC = () => {
   document.body.style.backgroundColor = "dodgerblue";
   const [token, setToken] = useState<string>(Context.getAccessToken());
 
   if (!token) {
-    return <Login setToken={setToken} />;
+    return <LoginComponent setToken={setToken} />;
   }
 
   return (
@@ -67,7 +67,7 @@ const App: React.FC = () => {
               <UsersList />
             </Route>
             <Route exact path="/login">
-              <Login setToken={setToken} />
+              <LoginComponent setToken={setToken} />
             </Route>
             <Route exact path="/updateuser/:id">
               <UpdateUser />

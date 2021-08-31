@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Ctx } from "../../App";
-import { Login } from "../Login/Login";
 
 interface Props {
   setToken: Dispatch<SetStateAction<string>>;

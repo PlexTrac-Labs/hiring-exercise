@@ -63,6 +63,9 @@ export const PasswordReset: React.FC = () => {
             InputLabelProps={{
               className: "password-input"
             }}
+            inputProps={{
+              "data-testid": "current-password-input"
+            }}
             value={currentPassword}
             onChange={e => setCurrentPassword(e.target.value)}
           />
@@ -74,6 +77,9 @@ export const PasswordReset: React.FC = () => {
             InputLabelProps={{
               className: "password-input"
             }}
+            inputProps={{
+              "data-testid": "new-password-input"
+            }}
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
           />
@@ -84,6 +90,9 @@ export const PasswordReset: React.FC = () => {
             className="confirm-password-input password-input"
             InputLabelProps={{
               className: "password-input"
+            }}
+            inputProps={{
+              "data-testid": "confirm-password-input"
             }}
             error={!!confirmError}
             helperText={confirmError}
@@ -105,6 +114,7 @@ export const PasswordReset: React.FC = () => {
               type="submit"
               className="submit-btn form-btn"
               variant="contained"
+              data-testid="submit-btn"
             >
               Submit
             </Button>

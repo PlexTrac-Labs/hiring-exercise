@@ -7,7 +7,7 @@ interface Props {
   setToken: Dispatch<SetStateAction<string>>;
 }
 
-export const Login: React.FC<Props> = props => {
+export const LoginComponent: React.FC<Props> = props => {
   const ctx = React.useContext(Ctx);
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -15,7 +15,7 @@ export const Login: React.FC<Props> = props => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await ctx?.authService
+    await ctx.authService
       .Login({
         username,
         password
@@ -47,6 +47,9 @@ export const Login: React.FC<Props> = props => {
           InputLabelProps={{
             className: "username-input"
           }}
+          inputProps={{
+            "data-testid": "username-input"
+          }}
           value={username}
           onChange={e => setUsername(e.target.value)}
           error={false}
@@ -56,9 +59,11 @@ export const Login: React.FC<Props> = props => {
           type="password"
           required={true}
           className="password-input"
-          InputProps={{
-            className: "password-input",
-            style: { color: "white" }
+          InputLabelProps={{
+            className: "password-input"
+          }}
+          inputProps={{
+            "data-testid": "password-input"
           }}
           value={password}
           onChange={e => setPassword(e.target.value)}
@@ -66,7 +71,12 @@ export const Login: React.FC<Props> = props => {
         <div className="error-container">
           {error && <p className="error-message">* {error}</p>}
         </div>
-        <Button type="submit" className="login-btn" variant="outlined">
+        <Button
+          type="submit"
+          className="login-btn"
+          variant="outlined"
+          data-testid="submit-btn"
+        >
           Login
         </Button>
       </form>
