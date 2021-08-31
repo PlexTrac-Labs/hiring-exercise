@@ -2,20 +2,15 @@ import { Button, Card, CardContent, TextField } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { Ctx } from "../../App";
-import { User } from "../../models/User/User";
 import { UpdateUserRequest } from "../../services/User/User";
 import { useEffectAsync } from "../../util/UseEffectAsync";
 import "./UpdateUser.scss";
-
-interface Props {
-  user?: User;
-}
 
 interface Params {
   id: string;
 }
 
-export const UpdateUser: React.FC<Props> = props => {
+export const UpdateUser: React.FC = () => {
   const ctx = React.useContext(Ctx);
   const history = useHistory();
   const { id } = useParams<Params>();

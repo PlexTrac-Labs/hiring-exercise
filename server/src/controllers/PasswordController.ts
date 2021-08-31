@@ -2,20 +2,26 @@ import * as Hapi from "@hapi/hapi";
 import { User } from "models/user";
 import bcrypt from "bcryptjs";
 import UserRepository from "../repositories/UserRepository";
+import UserModel from "../models/users/user";
 
 class PasswordController {
   private validateUser = async (
     userId: string,
     password: string
   ): Promise<User | never> => {
-    const user: User = await UserRepository.getById(userId);
     return new Promise((resolve, reject) => {
-      bcrypt.compare(password, user.password, (_, isValid) => {
-        if (isValid) {
-          delete user.password;
-          resolve(user);
+      UserModel.findOne({ _id: userId }, (err, $user) => {
+        if (err || !$user) {
+          reject(err ? err : "Invalid Credentials");
         } else {
-          reject("Invalid Credentials");
+          bcrypt.compare(password, $user.password, (_, isValid) => {
+            if (isValid) {
+              $user.password = undefined;
+              resolve($user);
+            } else {
+              reject("Invalid Credentials");
+            }
+          });
         }
       });
     });

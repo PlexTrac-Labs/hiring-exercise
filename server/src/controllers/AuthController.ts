@@ -22,7 +22,7 @@ class AuthController {
           } else {
             bcrypt.compare(password, $user.password, (err, isValid) => {
               if (isValid) {
-                delete $user.password;
+                $user.password = undefined;
                 resolve($user);
               } else {
                 reject("Invalid Credentials");

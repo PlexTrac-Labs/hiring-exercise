@@ -12,6 +12,7 @@ import { IUserService, UserService } from "./services/User/User";
 import { UpdateUser } from "./components/UpdateUser/UpdateUser";
 import { Button } from "@material-ui/core";
 import { UserDetails } from "./components/UserDetails/UserDetails";
+import { PasswordReset } from "./components/PasswordReset/PasswordReset";
 
 export const apiBaseUrl: string = "http://localhost:5000";
 
@@ -75,6 +76,9 @@ const App: React.FC = () => {
             </Route>
             <Route exact path="/user/:id">
               <UserDetails></UserDetails>
+            </Route>
+            <Route exact path="/passwordreset">
+              <PasswordReset></PasswordReset>
             </Route>
           </Switch>
         </BrowserRouter>

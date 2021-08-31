@@ -60,7 +60,7 @@ class UserRepository {
           reject(`No user found with id: ${userId}`);
         } else {
           const user = users[0];
-          delete user.password;
+          user.password = undefined;
           resolve(user);
         }
       });
@@ -76,7 +76,7 @@ class UserRepository {
           reject(`No user found with id`);
         } else {
           users.forEach(user => {
-            delete user.password;
+            user.password = undefined;
           });
           resolve(users);
         }
