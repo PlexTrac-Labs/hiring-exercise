@@ -3,7 +3,6 @@ import getRoutes from "./routes";
 import Mongoose from "mongoose";
 import validate from "./auth/validation";
 import { options } from "./config";
-const Path = require("path");
 
 const HOST = process.env.host || "localhost";
 const PORT = process.env.port || 5000;
@@ -11,7 +10,13 @@ const DATABASE = process.env.database || "mongodb://localhost:27017/local"; // t
 console.log(DATABASE);
 Mongoose.connect(DATABASE);
 
-const server: Hapi.Server = new Hapi.Server({ host: HOST, port: PORT });
+const server: Hapi.Server = new Hapi.Server({
+  host: HOST,
+  port: PORT,
+  routes: {
+    cors: true
+  }
+});
 
 async function start(): Promise<void> {
   try {

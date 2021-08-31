@@ -95,6 +95,22 @@ class UserRepository {
       });
     });
   }
+
+  public async updatePassword(userId: string, password: string): Promise<User> {
+    return new Promise((resolve, reject) => {
+      UserModel.update(
+        { _id: userId },
+        { password: this.hashPassword(password) },
+        (error, writeResult: User) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(writeResult);
+          }
+        }
+      );
+    });
+  }
 }
 
 export default new UserRepository();

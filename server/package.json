@@ -7,7 +7,7 @@
     "build": "tsc",
     "lint": "",
     "dev": "NODE_ENV=dev nodemon --max-old-space-size=8192",
-    "prestart": "npm build ../client && npm run build",
+    "prestart": "cd ../client && npm run build && cd ../server && npm run build",
     "start": "node ./build/index.js --max-old-space-size=8192",
     "test": "mocha --recursive",
     "prettier": "prettier \"**/*.+(ts|js|jsx|json|css|less|)\"",
@@ -20,7 +20,7 @@
   "author": "josh conlin",
   "license": "ISC",
   "devDependencies": {
-    "@types/hapi": "18.0.3",
+    "@types/hapi": "^18.0.3",
     "@types/node": "13.7.0",
     "@typescript-eslint/eslint-plugin": "2.18.0",
     "@typescript-eslint/parser": "2.18.0",
