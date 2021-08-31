@@ -8,4 +8,6 @@ export interface User {
   lastName: string;
   email: string;
   admin: boolean;
+  birthYear: number;
+  favoriteColor: string;
 }

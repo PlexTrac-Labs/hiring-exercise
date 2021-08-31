@@ -13,6 +13,8 @@ export interface UpdateUserRequest {
   firstName: string;
   lastName: string;
   email: string;
+  birthYear: number | undefined;
+  favoriteColor: string;
 }
 
 export class UserService implements IUserService {

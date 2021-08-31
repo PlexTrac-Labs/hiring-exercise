@@ -25,7 +25,7 @@ export const PasswordReset: React.FC = () => {
     await ctx.authService
       .PasswordReset(id, request)
       .then(async res => {
-        if (ctx.user?._id == id) {
+        if (ctx.user?._id === id) {
           ctx.user = await ctx.userService.GetUser(id);
         }
       })

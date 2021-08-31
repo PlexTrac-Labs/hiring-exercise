@@ -60,7 +60,9 @@ export default function getRoutes(server: Hapi.Server): void {
           username: Joi.string(),
           firstName: Joi.string(),
           lastName: Joi.string(),
-          email: Joi.string()
+          email: Joi.string(),
+          birthYear: Joi.number(),
+          favoriteColor: Joi.string()
         },
         failAction
       }
@@ -79,7 +81,9 @@ export default function getRoutes(server: Hapi.Server): void {
           firstName: Joi.string().required(),
           lastName: Joi.string().required(),
           email: Joi.string().required(),
-          password: Joi.string().required()
+          password: Joi.string().required(),
+          birthYear: Joi.number(),
+          favoriteColor: Joi.string()
         },
         failAction
       }

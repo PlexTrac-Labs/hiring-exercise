@@ -97,6 +97,22 @@ export const UserDetails: React.FC = () => {
               {`${user.admin}`}
             </TableCell>
           </TableRow>
+          <TableRow>
+            <TableCell align="center" className="table-cell row-label">
+              Birth Year
+            </TableCell>
+            <TableCell align="center" className="table-cell">
+              {user.birthYear}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell align="center" className="table-cell row-label">
+              Favorite Color
+            </TableCell>
+            <TableCell align="center" className="table-cell">
+              {user.favoriteColor}
+            </TableCell>
+          </TableRow>
         </Table>
       </TableContainer>
 

@@ -18,6 +18,8 @@ export const UpdateUser: React.FC = () => {
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [birthYear, setBirthYear] = useState<number>();
+  const [favoriteColor, setFavoriteColor] = useState<string>("");
 
   useEffectAsync(async () => {
     await ctx.userService.GetUser(id).then(res => {
@@ -25,6 +27,8 @@ export const UpdateUser: React.FC = () => {
       setLastName(res.lastName);
       setUsername(res.username);
       setEmail(res.email);
+      setBirthYear(res.birthYear);
+      setFavoriteColor(res.favoriteColor);
     });
   }, []);
 
@@ -34,11 +38,13 @@ export const UpdateUser: React.FC = () => {
       username,
       email,
       firstName,
-      lastName
+      lastName,
+      birthYear,
+      favoriteColor
     };
 
     await ctx.userService.UpdateUser(id, request).then(async res => {
-      if (ctx.user?._id == id) {
+      if (ctx.user?._id === id) {
         ctx.user = await ctx.userService.GetUser(id);
       }
       history.push("/");
@@ -88,6 +94,26 @@ export const UpdateUser: React.FC = () => {
             }}
             value={email}
             onChange={e => setEmail(e.target.value)}
+          />
+          <TextField
+            label="Birth Year"
+            type="number"
+            className="birth-year-input update-input"
+            InputLabelProps={{
+              className: "update-input"
+            }}
+            value={birthYear}
+            onChange={e => setBirthYear(+e.target.value)}
+          />
+          <TextField
+            label="Favorite Color"
+            type="text"
+            className="favorite-color-input update-input"
+            InputLabelProps={{
+              className: "update-input"
+            }}
+            value={favoriteColor}
+            onChange={e => setFavoriteColor(e.target.value)}
           />
           <div className="form-btns">
             <Button
