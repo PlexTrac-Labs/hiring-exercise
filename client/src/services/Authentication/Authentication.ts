@@ -7,8 +7,15 @@ export interface AuthResponse {
   user: User;
 }
 
+export interface PasswordResetRequest {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface IAuthService {
   Login(login: Login): Promise<AuthResponse>;
+  PasswordReset(userId: string, request: PasswordResetRequest): Promise<User>;
 }
 
 export class AuthService implements IAuthService {
@@ -22,5 +29,16 @@ export class AuthService implements IAuthService {
     return await axios.post(this.baseUrl + "/authenticate", login).then(res => {
       return res.data;
     });
+  }
+
+  public async PasswordReset(
+    userId: string,
+    request: PasswordResetRequest
+  ): Promise<User> {
+    return await axios
+      .put(this.baseUrl + `/passwordreset/${userId}`, request)
+      .then(res => {
+        return res.data;
+      });
   }
 }

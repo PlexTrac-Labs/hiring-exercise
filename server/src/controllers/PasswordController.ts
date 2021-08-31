@@ -4,22 +4,28 @@ import bcrypt from "bcryptjs";
 import UserRepository from "../repositories/UserRepository";
 
 class PasswordController {
-  public async Reset(request, h): Promise<Hapi.ServerResponse> {
+  private validateUser = async (
+    userId: string,
+    password: string
+  ): Promise<User | never> => {
+    const user: User = await UserRepository.getById(userId);
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(password, user.password, (_, isValid) => {
+        if (isValid) {
+          delete user.password;
+          resolve(user);
+        } else {
+          reject("Invalid Credentials");
+        }
+      });
+    });
+  };
+
+  public Reset = async (request, h): Promise<Hapi.ServerResponse> => {
     const { currentPassword, newPassword, confirmPassword } = request.payload;
     const userId: string = request.params.userId;
     try {
-      const user: User = await UserRepository.getById(userId);
-      let passwordsValid: boolean = false;
-
-      bcrypt.compare(currentPassword, user.password, (err, isValid) => {
-        passwordsValid = isValid;
-      });
-
-      if (passwordsValid) {
-        delete user.password;
-      } else {
-        throw new Error("Invalid Credentials");
-      }
+      await this.validateUser(userId, currentPassword);
 
       if (newPassword !== confirmPassword) throw new Error("Password mismatch");
 
@@ -35,7 +41,7 @@ class PasswordController {
         .code(400)
         .takeover();
     }
-  }
+  };
 }
 
 export default new PasswordController();
