@@ -1,3 +1,5 @@
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Button,
   Paper,
@@ -29,10 +31,32 @@ export const UserDetails: React.FC = () => {
     });
   }, []);
 
+  // TODO: add confirm
+  const deleteUser = async () => {
+    await ctx.userService.DeleteUser(id).then(() => {
+      history.push("/");
+    });
+  };
+
   return (
     <div className="user-details-wrapper">
       <TableContainer className="table-container" component={Paper}>
         <Table className="user-details-table">
+          <TableRow>
+            <TableCell colSpan={2} align="center" className="table-cell">
+              {user.firstName} {user.lastName}
+              <FontAwesomeIcon
+                icon={faEdit}
+                className="edit-btn"
+                onClick={() => history.push(`/updateuser/${id}`)}
+              />
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="delete-btn"
+                onClick={async () => await deleteUser()}
+              />
+            </TableCell>
+          </TableRow>
           <TableRow>
             <TableCell align="center" className="table-cell row-label">
               First Name
@@ -70,7 +94,7 @@ export const UserDetails: React.FC = () => {
               Admin
             </TableCell>
             <TableCell align="center" className="table-cell">
-              {user.admin}
+              {`${user.admin}`}
             </TableCell>
           </TableRow>
         </Table>

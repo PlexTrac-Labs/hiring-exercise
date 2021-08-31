@@ -1,4 +1,35 @@
-.update-user-form {
-  display: flex;
-  flex-direction: column;
+.update-user-wrapper {
+  width: 350px;
+  margin: auto;
+  .update-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+
+    .update-input {
+      width: 250px;
+      margin-top: 8px;
+      text-align: start;
+    }
+
+    .form-btns {
+      margin-top: 16px;
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+
+      .form-btn {
+        color: white;
+      }
+
+      .cancel-btn {
+        background-color: red;
+      }
+
+      .submit-btn {
+        background-color: blue;
+      }
+    }
+  }
 }

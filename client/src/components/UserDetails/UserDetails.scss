@@ -1,8 +1,16 @@
 .user-details-wrapper {
   padding: 8px;
 
-  .row-label {
-    font: bold;
+  .table-cell {
+    border: 1px solid;
+  }
+
+  .edit-btn {
+    margin: 0 8px 0 16px;
+  }
+
+  .delete-btn {
+    margin: 0 8px;
   }
 
   .back-btn {

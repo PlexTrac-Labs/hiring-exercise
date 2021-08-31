@@ -1,4 +1,4 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, Card, CardContent, TextField } from "@material-ui/core";
 import React, { FormEvent, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { Ctx } from "../../App";
@@ -51,45 +51,67 @@ export const UpdateUser: React.FC<Props> = props => {
   };
 
   return (
-    <form className="update-user-form" onSubmit={handleSubmit}>
-      <TextField
-        label="First Name"
-        type="text"
-        className="firstname-input"
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
-      />
-      <TextField
-        label="Last Name"
-        type="text"
-        className="lastname-input"
-        value={lastName}
-        onChange={e => setLastName(e.target.value)}
-      />
-      <TextField
-        label="Username"
-        type="text"
-        className="username-input"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-      />
-      <TextField
-        label="Email"
-        type="text"
-        className="email-input"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <Button
-        className="cancel-btn"
-        variant="contained"
-        onClick={() => history.push("/")}
-      >
-        Cancel
-      </Button>
-      <Button type="submit" className="submit-btn" variant="contained">
-        Submit
-      </Button>
-    </form>
+    <Card className="update-user-wrapper" variant="outlined">
+      <CardContent>
+        <form className="update-user-form" onSubmit={handleSubmit}>
+          <TextField
+            label="First Name"
+            type="text"
+            className="firstname-input update-input"
+            InputLabelProps={{
+              className: "update-input"
+            }}
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+          />
+          <TextField
+            label="Last Name"
+            type="text"
+            className="lastname-input update-input"
+            InputLabelProps={{
+              className: "update-input"
+            }}
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+          />
+          <TextField
+            label="Username"
+            type="text"
+            className="username-input update-input"
+            InputLabelProps={{
+              className: "update-input"
+            }}
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+          <TextField
+            label="Email"
+            type="text"
+            className="email-input update-input"
+            InputLabelProps={{
+              className: "update-input"
+            }}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <div className="form-btns">
+            <Button
+              className="cancel-btn form-btn"
+              variant="contained"
+              onClick={() => history.push("/")}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              className="submit-btn form-btn"
+              variant="contained"
+            >
+              Submit
+            </Button>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
