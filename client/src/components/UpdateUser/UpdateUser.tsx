@@ -18,7 +18,7 @@ export const UpdateUser: React.FC = () => {
   const [lastName, setLastName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [birthYear, setBirthYear] = useState<number>();
+  const [birthYear, setBirthYear] = useState<number>(new Date().getFullYear());
   const [favoriteColor, setFavoriteColor] = useState<string>("");
   const [error, setError] = useState<string>("");
 
@@ -46,7 +46,7 @@ export const UpdateUser: React.FC = () => {
 
     await ctx.userService
       .UpdateUser(id, request)
-      .then(async res => {
+      .then(async () => {
         if (ctx.user?._id === id) {
           ctx.user = await ctx.userService.GetUser(id);
         }
@@ -68,6 +68,9 @@ export const UpdateUser: React.FC = () => {
             InputLabelProps={{
               className: "update-input"
             }}
+            inputProps={{
+              "data-testid": "first-name-input"
+            }}
             value={firstName}
             onChange={e => setFirstName(e.target.value)}
           />
@@ -77,6 +80,9 @@ export const UpdateUser: React.FC = () => {
             className="lastname-input update-input"
             InputLabelProps={{
               className: "update-input"
+            }}
+            inputProps={{
+              "data-testid": "last-name-input"
             }}
             value={lastName}
             onChange={e => setLastName(e.target.value)}
@@ -88,6 +94,9 @@ export const UpdateUser: React.FC = () => {
             InputLabelProps={{
               className: "update-input"
             }}
+            inputProps={{
+              "data-testid": "username-input"
+            }}
             value={username}
             onChange={e => setUsername(e.target.value)}
           />
@@ -97,6 +106,9 @@ export const UpdateUser: React.FC = () => {
             className="email-input update-input"
             InputLabelProps={{
               className: "update-input"
+            }}
+            inputProps={{
+              "data-testid": "email-input"
             }}
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -108,6 +120,9 @@ export const UpdateUser: React.FC = () => {
             InputLabelProps={{
               className: "update-input"
             }}
+            inputProps={{
+              "data-testid": "birth-year-input"
+            }}
             value={birthYear}
             onChange={e => setBirthYear(+e.target.value)}
           />
@@ -117,6 +132,9 @@ export const UpdateUser: React.FC = () => {
             className="favorite-color-input update-input"
             InputLabelProps={{
               className: "update-input"
+            }}
+            inputProps={{
+              "data-testid": "favorite-color-input"
             }}
             value={favoriteColor}
             onChange={e => setFavoriteColor(e.target.value)}
@@ -136,6 +154,7 @@ export const UpdateUser: React.FC = () => {
               type="submit"
               className="submit-btn form-btn"
               variant="contained"
+              data-testid="submit-btn"
             >
               Submit
             </Button>
