@@ -2,48 +2,36 @@ import React, { useState } from "react";
 import "./App.scss";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import { LoginComponent } from "./components/Login/Login";
-import {
-  AuthService,
-  IAuthService
-} from "./services/Authentication/Authentication";
+import { AuthService } from "./services/Authentication/Authentication";
 import { UsersList } from "./components/UsersList/UserList";
-import { User } from "./models/User/User";
-import { IUserService, UserService } from "./services/User/User";
 import { UpdateUser } from "./components/UpdateUser/UpdateUser";
 import { Button } from "@material-ui/core";
 import { UserDetails } from "./components/UserDetails/UserDetails";
 import { PasswordReset } from "./components/PasswordReset/PasswordReset";
 import { Signout } from "./components/Signout/Signout";
+import { IContext } from "./util/Context";
+import { UserService } from "./services/User/User";
+import { getAccessToken } from "./util/Token";
 
 export const apiBaseUrl: string = "http://localhost:5000";
 
-export interface IContext {
-  authService: IAuthService;
-  userService: IUserService;
-  user?: User;
-  getAccessToken(): string;
-  setAccessToken(token: string): void;
-}
-
 const Context: IContext = {
   authService: new AuthService(apiBaseUrl),
-  userService: new UserService(apiBaseUrl),
-  getAccessToken(): string {
-    return sessionStorage.getItem("accessToken") ?? "";
-  },
-  setAccessToken(token: string): void {
-    sessionStorage.setItem("accessToken", token);
-  }
+  userService: new UserService(apiBaseUrl)
 };
 
 export const Ctx = React.createContext<IContext>({} as IContext);
 
 const App: React.FC = () => {
   document.body.style.backgroundColor = "dodgerblue";
-  const [token, setToken] = useState<string>(Context.getAccessToken());
+  const [token, setToken] = useState<string>(getAccessToken());
 
   if (!token) {
-    return <LoginComponent setToken={setToken} />;
+    return (
+      <Ctx.Provider value={Context}>
+        <LoginComponent setToken={setToken} />
+      </Ctx.Provider>
+    );
   }
 
   return (

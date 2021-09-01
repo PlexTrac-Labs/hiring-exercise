@@ -3,6 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import axios from "axios";
+import { getAccessToken } from "./util/Token";
+
+axios.interceptors.request.use(function(config) {
+  const token = getAccessToken();
+  config.headers.Authorization = token;
+
+  return config;
+});
 
 ReactDOM.render(
   <React.StrictMode>

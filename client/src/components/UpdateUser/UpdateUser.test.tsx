@@ -1,11 +1,12 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { It, Mock, Times } from "moq.ts";
-import { Ctx, IContext } from "../../App";
+import { Ctx } from "../../App";
 import { User } from "../../models/User/User";
 import { IAuthService } from "../../services/Authentication/Authentication";
 import { IUserService, UpdateUserRequest } from "../../services/User/User";
 import { UpdateUser } from "./UpdateUser";
 import Router from "react-router";
+import { IContext } from "../../util/Context";
 
 describe("Update User Component", () => {
   const expectedUser: User = {
@@ -61,8 +62,6 @@ describe("Update User Component", () => {
     const context: IContext = {
       userService: mock.object(),
       authService: {} as IAuthService,
-      getAccessToken: () => "",
-      setAccessToken: token => {},
       user: expectedUser
     };
 

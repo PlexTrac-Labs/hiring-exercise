@@ -2,6 +2,7 @@ import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Ctx } from "../../App";
 import { Button, TextField } from "@material-ui/core";
 import "./Login.scss";
+import { setAccessToken } from "../../util/Token";
 
 interface Props {
   setToken: Dispatch<SetStateAction<string>>;
@@ -22,7 +23,7 @@ export const LoginComponent: React.FC<Props> = props => {
       })
       .then(res => {
         props.setToken(res.auth_token);
-        ctx.setAccessToken(res.auth_token);
+        setAccessToken(res.auth_token);
         ctx.user = res.user;
       })
       .catch(_ => {

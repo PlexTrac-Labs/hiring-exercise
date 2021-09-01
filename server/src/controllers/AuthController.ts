@@ -49,7 +49,7 @@ class AuthController {
       return h.response(response).takeover();
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(401)
         .takeover();
     }

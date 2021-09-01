@@ -43,7 +43,7 @@ class PasswordController {
       return h.response(updated);
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(400)
         .takeover();
     }

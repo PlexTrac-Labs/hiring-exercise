@@ -27,7 +27,7 @@ class UserController {
       return h.response(user).takeover();
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(403)
         .takeover();
     }
@@ -48,7 +48,7 @@ class UserController {
       return h.response(updated);
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(403)
         .takeover();
     }
@@ -68,7 +68,7 @@ class UserController {
       return h.response(user);
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(403)
         .takeover();
     }
@@ -95,7 +95,7 @@ class UserController {
       return h.response(response);
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(400)
         .takeover();
     }
@@ -108,7 +108,7 @@ class UserController {
       return h.response(users);
     } catch (error) {
       return h
-        .response({ status: "error", error: error.message })
+        .response({ status: "error", error: error })
         .code(400)
         .takeover();
     }

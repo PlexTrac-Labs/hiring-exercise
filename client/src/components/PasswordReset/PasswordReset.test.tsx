@@ -1,12 +1,13 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { It, Mock, Times } from "moq.ts";
-import { Ctx, IContext } from "../../App";
+import { Ctx } from "../../App";
 import { User } from "../../models/User/User";
 import {
   IAuthService,
   PasswordResetRequest
 } from "../../services/Authentication/Authentication";
 import { IUserService } from "../../services/User/User";
+import { IContext } from "../../util/Context";
 import { PasswordReset } from "./PasswordReset";
 
 describe("Login Component", () => {
@@ -47,8 +48,6 @@ describe("Login Component", () => {
     const context: IContext = {
       userService: {} as IUserService,
       authService: mock.object(),
-      getAccessToken: () => "",
-      setAccessToken: token => {},
       user: expectedUser
     };
 
