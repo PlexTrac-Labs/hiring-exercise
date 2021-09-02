@@ -75,7 +75,6 @@ class UserController {
   }
 
   public async create(request, h): Promise<Hapi.ServerResponse> {
-    console.log("############### here");
     try {
       const payload: User = request.payload;
       const exists: boolean = await UserRepository.doesExist(payload);
