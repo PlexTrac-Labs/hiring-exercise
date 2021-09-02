@@ -26,8 +26,6 @@ const App: React.FC = () => {
   document.body.style.backgroundColor = "dodgerblue";
   const [token, setToken] = useState<string>(getAccessToken());
 
-  console.log("url: ", apiBaseUrl);
-
   if (!token) {
     return (
       <Ctx.Provider value={Context}>
