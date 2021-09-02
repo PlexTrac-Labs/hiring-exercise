@@ -13,7 +13,7 @@ import { IContext } from "./util/Context";
 import { UserService } from "./services/User/User";
 import { getAccessToken } from "./util/Token";
 
-export const apiBaseUrl: string = "http://localhost:5000";
+export const apiBaseUrl: string = process.env.REACT_APP_API_URL ?? "";
 
 const Context: IContext = {
   authService: new AuthService(apiBaseUrl),
@@ -25,6 +25,8 @@ export const Ctx = React.createContext<IContext>({} as IContext);
 const App: React.FC = () => {
   document.body.style.backgroundColor = "dodgerblue";
   const [token, setToken] = useState<string>(getAccessToken());
+
+  console.log("url: ", apiBaseUrl);
 
   if (!token) {
     return (

@@ -4,7 +4,7 @@ import Mongoose from "mongoose";
 import validate from "./auth/validation";
 import { options } from "./config";
 
-const HOST = process.env.host || "localhost";
+const HOST = process.env.host || "0.0.0.0";
 const PORT = process.env.port || 5000;
 const DATABASE = process.env.database || "mongodb://localhost:27017/local"; // todo: dockerize
 console.log(DATABASE);
@@ -20,10 +20,11 @@ const server: Hapi.Server = new Hapi.Server({
 
 async function start(): Promise<void> {
   try {
-    await server.register({
-      plugin: require("good"),
-      options
-    });
+    // TODO: replace good
+    // await server.register({
+    //   plugin: require("good"),
+    //   options
+    // });
 
     await server.register({
       plugin: require("hapi-pino"),

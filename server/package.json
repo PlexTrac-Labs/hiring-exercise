@@ -7,11 +7,13 @@
     "build": "tsc",
     "lint": "",
     "dev": "NODE_ENV=dev nodemon --max-old-space-size=8192",
-    "prestart": "cd ../client && npm run build && cd ../server && npm run build",
+    "prestart": "npm run build",
     "start": "node ./build/index.js --max-old-space-size=8192",
     "test": "mocha --recursive",
     "prettier": "prettier \"**/*.+(ts|js|jsx|json|css|less|)\"",
-    "prettier:format": "npm run prettier -- --write"
+    "prettier:format": "npm run prettier -- --write",
+    "start:production": "NODE_ENV=development node ./build/index.js",
+    "start:development": "NODE_ENV=production node ./build/index.js"
   },
   "keywords": [
     "typescript",

@@ -17,6 +17,7 @@
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
     "axios": "^0.21.1",
+    "env-cmd": "^10.1.0",
     "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -27,10 +28,14 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.development react-scripts start",
+    "build": "env-cmd -f .env.development react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:production": "env-cmd -f .env.production react-scripts build",
+    "start:production": "env-cmd -f .env.production react-scripts start",
+    "build:development": "env-cmd -f .env.development react-scripts build",
+    "start:development": "env-cmd -f .env.development react-scripts start"
   },
   "eslintConfig": {
     "extends": [

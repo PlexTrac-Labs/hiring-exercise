@@ -6,6 +6,32 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+  server:
+    build: ./server
+    environment:
+      database: mongodb://mongo:27017
+      port: 5000
+      host: "0.0.0.0"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server:/usr/src/app
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  client:
+    build:
+      context: ./client
+      target: deploy
+    ports:
+      - "3000:80"
+    volumes:
+      - ./client:/usr/src/app
+    links:
+      - server
+    depends_on:
+      - server
 
 volumes:
   mongodb_data_container:
