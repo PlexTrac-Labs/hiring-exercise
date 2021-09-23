@@ -44,7 +44,7 @@
     "node": "13"
   },
   "dependencies": {
-    "@hapi/hapi": "18.4.0",
+    "@hapi/hapi": "18.4.1",
     "bcryptjs": "2.4.3",
     "good": "8.1.2",
     "good-console": "8.0.0",
