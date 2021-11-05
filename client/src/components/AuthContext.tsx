@@ -1,55 +1,70 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 import React, { useEffect } from "react";
+import { User } from "../types/User";
 
-interface LoginPayload {
+export interface LoginPayload {
   username: string;
   password: string;
 }
 
-interface UserObj {
-  _id: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  admin: boolean;
+interface AuthResp {
+  auth_token?: string;
+  user?: User;
+  error?: string;
 }
 
-interface AuthUtils {
-  login: (payload: LoginPayload) => void;
-  authenticatedApiConfig: (paylaod: {}) => any; // returns an axios object read to use
-  jwtToken?: string;
-  user?: UserObj;
+interface AuthUtils extends AuthResp {
+  authenticate: (payload: LoginPayload) => void;
+  axiosInstance: AxiosInstance;
+  // authenticatedApiConfig: (paylaod: {}) => any; // returns an axios object read to use
 }
 
 export const AuthContext = React.createContext<AuthUtils | null>(null);
 
-const AuthProvider = (props: any) => {
-  const [
-    initialAuthContext,
-    setInitialAuthContext
-  ] = React.useState<AuthUtils | null>(null);
+const axiosInstance = (token?: string) =>
+  axios.create({
+    baseURL: "http://localhost:5000",
+    timeout: 5000,
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  });
 
-  const logUserIn = (payload: LoginPayload) => {
-    axios
-      .post(`${window.location.hostname}:5000/`)
+const AuthProvider = (props: any) => {
+  const authenticateUser = (payload: LoginPayload) => {
+    axiosInstance()
+      .post<AuthResp>("/authenticate", payload)
       .then(res => {
-        console.log("SUCCESS...", res.data);
+        return res.data as AuthResp;
       })
-      .catch(err => {
-        console.log("ERROR...", err);
-      });
+      .then(r => setInitialAuthContext({ ...initialAuthContext, ...r }))
+      .catch(r =>
+        setInitialAuthContext({
+          ...initialAuthContext,
+          error: "Username or Password Incorrect"
+        })
+      );
   };
 
+  const initial: AuthUtils = {
+    axiosInstance: axiosInstance(),
+    authenticate: authenticateUser
+  };
+
+  const [initialAuthContext, setInitialAuthContext] = React.useState<AuthUtils>(
+    initial
+  );
+
   useEffect(() => {
-    const initial: AuthUtils = {
-      jwtToken: undefined,
-      user: undefined,
-      login: logUserIn,
-      authenticatedApiConfig: () => {}
-    };
-    setInitialAuthContext(initial);
-  }, []);
+    setInitialAuthContext(prevState => ({
+      ...prevState,
+      axiosInstance: axiosInstance(initialAuthContext.auth_token)
+    }));
+    console.log(
+      "axiosInstance updated with token....",
+      initialAuthContext.auth_token
+    );
+  }, [initialAuthContext.auth_token]);
 
   return (
     <AuthContext.Provider value={initialAuthContext}>

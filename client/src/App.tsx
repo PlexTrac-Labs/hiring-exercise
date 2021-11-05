@@ -2,8 +2,15 @@
 // import logo from "./logo.svg";
 // import "./App.css";
 
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Navigate
+} from "react-router-dom";
 import AuthProvider from "./components/AuthContext";
+import AuthRequired from "./components/AuthRequired";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import UserCreate from "./pages/UserCreate";
@@ -17,9 +24,17 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login text1="Login" />} />
+          <Route path="/" element={<Navigate to="/user" />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/user" element={<Outlet />}>
-            <Route path="" element={<UserList />} />
+            <Route
+              path=""
+              element={
+                <AuthRequired>
+                  <UserList />
+                </AuthRequired>
+              }
+            />
             <Route path="create" element={<UserCreate />} />
             <Route path=":userId/update" element={<UserUpdate />} />
             <Route
