@@ -8,7 +8,9 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  admin: boolean;
+  // admin: boolean;
+  birthYear: string;
+  favoriteColor: string;
 }
 
 interface IUserState {
@@ -100,7 +102,11 @@ const UserContextProvider: React.FC<props> = ({ children }) => {
       .then(r => r.data as User[])
       .then(u => (dispatch ? dispatch(actionUsersLoad(u)) : null))
       .catch(e => console.log(e.response));
-  }, [auth?.axiosInstance, dispatch]);
+  }, [auth?.axiosInstance, dispatch, auth?.auth_token]);
+
+  React.useEffect(() => {
+    console.log(state.users);
+  }, [state]);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>

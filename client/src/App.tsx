@@ -29,6 +29,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate to="/user" />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/password-change" element={<UserPasswordReset />} />
 
               <Route path="/user" element={<Outlet />}>
                 <Route
@@ -39,12 +40,22 @@ function App() {
                     </AuthRequired>
                   }
                 />
-                <Route path=":userId/update" element={<UserUpdate />} />
                 <Route
-                  path=":userId/password-reset"
-                  element={<UserPasswordReset />}
+                  path=":userId/update"
+                  element={
+                    <AuthRequired>
+                      <UserUpdate />
+                    </AuthRequired>
+                  }
                 />
-                <Route path=":userId" element={<UserView />} />
+                <Route
+                  path=":userId"
+                  element={
+                    <AuthRequired>
+                      <UserView />
+                    </AuthRequired>
+                  }
+                />
               </Route>
 
               <Route path="*" element={<NotFound />} />

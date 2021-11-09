@@ -1,8 +1,8 @@
-import { Typography } from "@mui/material";
 import React from "react";
-import { useNavigate, useParams } from "react-router";
-import ButtonDeleteUser from "../components/ButtonDeleteUser";
+import { useParams } from "react-router";
+import { AuthContext } from "../components/AuthContext";
 import ButtonNavigateToEdit from "../components/ButtonNavigateToEdit";
+import ButtonNavigateToPasswordChange from "../components/ButtonNavigateToPasswordChange";
 import ButtonNavigateToUserList from "../components/ButtonNavigateToUserList";
 import FormUserUpdate from "../components/FormUserUpdate";
 import TitleBar from "../components/TitleBar";
@@ -10,6 +10,9 @@ import { selectUserById, UserContext } from "../components/UserContext";
 
 const UserView: React.FC = () => {
   const { userId } = useParams();
+
+  const authContext = React.useContext(AuthContext);
+  const myId = authContext?.user?._id;
 
   const userContext = React.useContext(UserContext);
   const user = selectUserById(userContext?.state, userId);
@@ -26,6 +29,7 @@ const UserView: React.FC = () => {
         left={<ButtonNavigateToUserList />}
         right={
           <>
+            {myId === user?._id ? <ButtonNavigateToPasswordChange /> : <></>}
             <ButtonNavigateToEdit relativeNavigation={"update"} />
             {/* <ButtonDeleteUser userId={user?._id} /> */}
           </>

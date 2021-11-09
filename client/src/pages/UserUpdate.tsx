@@ -1,8 +1,8 @@
-import { Typography } from "@mui/material";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 import { AuthContext } from "../components/AuthContext";
 import ButtonDeleteUser from "../components/ButtonDeleteUser";
+import ButtonNavigateToPasswordChange from "../components/ButtonNavigateToPasswordChange";
 import ButtonNavigateToUserList from "../components/ButtonNavigateToUserList";
 import ButtonNavigateToView from "../components/ButtonNavigateToView";
 import FormUserUpdate from "../components/FormUserUpdate";
@@ -17,6 +17,7 @@ import {
 const UserUpdate: React.FC = () => {
   const { userId } = useParams();
   const auth = React.useContext(AuthContext);
+  const myId = auth?.user?._id;
 
   const userContext = React.useContext(UserContext);
   const dispatch = userContext.dispatch;
@@ -31,7 +32,9 @@ const UserUpdate: React.FC = () => {
         username: u.username,
         firstName: u.firstName,
         lastName: u.lastName,
-        email: u.email
+        email: u.email,
+        birthYear: u.birthYear,
+        favoriteColor: u.favoriteColor
       })
       .then(r => r.data)
       .then(() => (dispatch ? dispatch(actionUserUpdate(u)) : null))
@@ -50,6 +53,7 @@ const UserUpdate: React.FC = () => {
         left={<ButtonNavigateToUserList />}
         right={
           <>
+            {myId === user?._id ? <ButtonNavigateToPasswordChange /> : null}
             <ButtonNavigateToView relativeNavigation={"/user/" + user?._id} />
             <ButtonDeleteUser userId={user?._id} />
           </>

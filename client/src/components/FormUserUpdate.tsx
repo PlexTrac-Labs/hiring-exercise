@@ -12,47 +12,65 @@ interface props {
 }
 
 const FormUserUpdate: React.FC<props> = ({ user, viewMode, cancel, save }) => {
-  const [userEdits, setUserEdits] = React.useState<User | undefined>(user);
+  const [userEdits, setUserEdits] = React.useState<User>({
+    username: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    birthYear: "",
+    favoriteColor: "",
+    _id: ""
+  });
+
+  React.useEffect(() => {
+    if (user) {
+      setUserEdits(user);
+    }
+  }, [user]);
 
   return (
     <div style={{ maxWidth: "300px", margin: "auto" }}>
       <TextFieldBase
         label="Username"
         value={userEdits?.username}
-        onChange={e =>
-          setUserEdits(
-            userEdits ? { ...userEdits, username: e.target.value } : undefined
-          )
-        }
+        onChange={e => setUserEdits({ ...userEdits, username: e.target.value })}
         disabled={viewMode}
       />
       <TextFieldBase
         label="Email"
         value={userEdits?.email}
-        onChange={e =>
-          setUserEdits(
-            userEdits ? { ...userEdits, email: e.target.value } : undefined
-          )
-        }
+        onChange={e => setUserEdits({ ...userEdits, email: e.target.value })}
         disabled={viewMode}
       />
       <TextFieldBase
         label="First Name"
         value={userEdits?.firstName}
         onChange={e =>
-          setUserEdits(
-            userEdits ? { ...userEdits, firstName: e.target.value } : undefined
-          )
+          setUserEdits({ ...userEdits, firstName: e.target.value })
         }
         disabled={viewMode}
       />
       <TextFieldBase
         label="Last Name"
         value={userEdits?.lastName}
+        onChange={e => setUserEdits({ ...userEdits, lastName: e.target.value })}
+        disabled={viewMode}
+      />
+      <TextFieldBase
+        label="Birth Year"
+        value={userEdits?.birthYear || 2000}
+        type="number"
+        disabled={viewMode}
+        InputProps={{ inputProps: { min: 1900, max: 2100 } }}
         onChange={e =>
-          setUserEdits(
-            userEdits ? { ...userEdits, lastName: e.target.value } : undefined
-          )
+          setUserEdits({ ...userEdits, birthYear: e.target.value })
+        }
+      />
+      <TextFieldBase
+        label="Favorite Color"
+        value={userEdits?.favoriteColor}
+        onChange={e =>
+          setUserEdits({ ...userEdits, favoriteColor: e.target.value })
         }
         disabled={viewMode}
       />

@@ -2,8 +2,10 @@ import { AccountCircle } from "@mui/icons-material";
 import { ListItem, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../components/AuthContext";
 import ButtonDeleteUser from "../components/ButtonDeleteUser";
 import ButtonNavigateToEdit from "../components/ButtonNavigateToEdit";
+import ButtonNavigateToPasswordChange from "../components/ButtonNavigateToPasswordChange";
 import ButtonNavigateToUserList from "../components/ButtonNavigateToUserList";
 import ListBase from "../components/ListBase";
 import TitleBar from "../components/TitleBar";
@@ -48,6 +50,9 @@ interface rowProps {
 const Row: React.FC<rowProps> = ({ user }) => {
   const navigate = useNavigate();
 
+  const authContext = React.useContext(AuthContext);
+  const myId = authContext?.user?._id;
+
   return (
     <ListItem
       key={user._id}
@@ -67,6 +72,7 @@ const Row: React.FC<rowProps> = ({ user }) => {
         <Typography>{user.email}</Typography>
       </Cell>
       <Cell style={{ display: "flex", justifyContent: "end" }}>
+        {myId === user._id ? <ButtonNavigateToPasswordChange /> : <></>}
         <ButtonNavigateToEdit relativeNavigation={`${user._id}/update`} />
         <ButtonDeleteUser userId={user._id} />
       </Cell>
