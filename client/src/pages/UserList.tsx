@@ -2,31 +2,21 @@ import { AccountCircle } from "@mui/icons-material";
 import { ListItem, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../components/AuthContext";
 import ButtonDeleteUser from "../components/ButtonDeleteUser";
 import ButtonNavigateToEdit from "../components/ButtonNavigateToEdit";
+import ButtonNavigateToUserList from "../components/ButtonNavigateToUserList";
 import ListBase from "../components/ListBase";
-import { actionUsersLoad, User, UserContext } from "../components/UserContext";
+import TitleBar from "../components/TitleBar";
+import { User, UserContext } from "../components/UserContext";
 
 const UserList: React.FC = () => {
-  const auth = React.useContext(AuthContext);
-
   const userContext = React.useContext(UserContext);
-  // const dispatch = userContext?.dispatch
   const users = userContext?.state.users;
-
-  React.useEffect(() => {
-    console.log(userContext?.state);
-    auth?.axiosInstance
-      .get("/user")
-      .then(r => r.data as User[])
-      .then(u => userContext?.dispatch(actionUsersLoad(u)))
-      .catch(e => console.log(e.response));
-  }, [auth?.axiosInstance, userContext?.dispatch]);
 
   return (
     <>
-      <ListBase listHeader={<Typography>Users</Typography>}>
+      <TitleBar left={<ButtonNavigateToUserList disabled />} />
+      <ListBase>
         {users?.map(u => (
           <Row key={u._id} user={u} />
         ))}

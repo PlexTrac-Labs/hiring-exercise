@@ -1,4 +1,4 @@
-import { Edit } from "@mui/icons-material";
+import { Visibility } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router";
 
@@ -6,7 +6,7 @@ interface props {
   relativeNavigation?: string;
 }
 
-const ButtonNavigateToEdit: React.FC<props> = ({ relativeNavigation }) => {
+const ButtonNavigateToView: React.FC<props> = ({ relativeNavigation }) => {
   const navigate = useNavigate();
 
   const handleClick = (
@@ -23,8 +23,8 @@ const ButtonNavigateToEdit: React.FC<props> = ({ relativeNavigation }) => {
         relativeNavigation ? handleClick(e, relativeNavigation) : null
       }
     >
-      <Edit />
+      <Visibility />
     </IconButton>
   );
 };
-export default ButtonNavigateToEdit;
+export default ButtonNavigateToView;

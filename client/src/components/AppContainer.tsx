@@ -5,6 +5,10 @@ interface Props {
 }
 
 const AppContainer = ({ children }: Props) => {
-  return <Container style={{ marginTop: "100px" }}>{children}</Container>;
+  return (
+    <Container style={{ marginTop: "50px" }} maxWidth="md">
+      {children}
+    </Container>
+  );
 };
 export default AppContainer;

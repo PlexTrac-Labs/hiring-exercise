@@ -15,7 +15,6 @@ import AuthRequired from "./components/AuthRequired";
 import UserContextProvider from "./components/UserContext";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import UserCreate from "./pages/UserCreate";
 import UserList from "./pages/UserList";
 import UserPasswordReset from "./pages/UserPasswordReset";
 import UserUpdate from "./pages/UserUpdate";
@@ -40,7 +39,6 @@ function App() {
                     </AuthRequired>
                   }
                 />
-                <Route path="create" element={<UserCreate />} />
                 <Route path=":userId/update" element={<UserUpdate />} />
                 <Route
                   path=":userId/password-reset"

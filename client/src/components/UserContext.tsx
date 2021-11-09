@@ -1,4 +1,5 @@
 import React from "react";
+import { AuthContext } from "./AuthContext";
 // import { AuthContext } from "./AuthContext"
 
 export interface User {
@@ -21,27 +22,61 @@ interface IAction {
 
 interface IUserContext {
   state: IUserState;
-  dispatch: React.Dispatch<IAction>;
+  dispatch?: React.Dispatch<IAction>;
 }
 
-export const UserContext = React.createContext<IUserContext | null>(null);
+const initialUserContext: IUserContext = {
+  state: {
+    users: []
+  }
+};
+
+export const UserContext = React.createContext<IUserContext>(
+  initialUserContext
+);
 
 // SELECTORS
+export const selectUsers = (state: IUserState): User[] => state.users;
+export const selectUserById = (
+  state: IUserState,
+  id?: string
+): User | undefined => selectUsers(state).find(u => u._id === id);
 
 // ACTIONS
 const loadUsers = "loadUsers";
+const updateUser = "updateUser";
+const deleteUser = "deleteUser";
+
 export const actionUsersLoad = (users: User[]): IAction => ({
   type: loadUsers,
   payload: users
 });
+export const actionUserUpdate = (user: User): IAction => ({
+  type: updateUser,
+  payload: user
+});
+export const actionUserDelete = (userId: string): IAction => ({
+  type: deleteUser,
+  payload: userId
+});
 
 // REDUCER
 function reducer(state: IUserState, action: IAction): IUserState {
-  console.log("reducer");
   switch (action.type) {
     case loadUsers:
-      console.log("firing");
       return { ...state, users: action.payload };
+    case updateUser:
+      return {
+        ...state,
+        users: state.users.map(u =>
+          u._id === action.payload._id ? { u, ...action.payload } : u
+        )
+      };
+    case deleteUser:
+      return {
+        ...state,
+        users: state.users.filter(u => u._id !== action.payload)
+      };
     default:
       return state;
   }
@@ -54,7 +89,18 @@ interface props {
 
 const UserContextProvider: React.FC<props> = ({ children }) => {
   // STORE
-  const [state, dispatch] = React.useReducer(reducer, { users: [] });
+  const [state, dispatch] = React.useReducer(reducer, initialUserContext.state);
+
+  // load Users whenever UserContext is in use
+  const auth = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    auth?.axiosInstance
+      .get("/user")
+      .then(r => r.data as User[])
+      .then(u => (dispatch ? dispatch(actionUsersLoad(u)) : null))
+      .catch(e => console.log(e.response));
+  }, [auth?.axiosInstance, dispatch]);
 
   return (
     <UserContext.Provider value={{ state, dispatch }}>
@@ -63,43 +109,3 @@ const UserContextProvider: React.FC<props> = ({ children }) => {
   );
 };
 export default UserContextProvider;
-
-// // ACTIONS
-// const userStoreLoad = () => {
-//     console.log('loading users...')
-//     const setUserStoreUsers = (users: User[]) => setUserStore({...userStore, users: users})
-
-//     auth?.axiosInstance
-//         .get("/user")
-//         .then(r => r.data as User[])
-//         .then(r => setUserStoreUsers(r))
-//         .catch(e => console.log(e.response));
-// };
-// const userStoreCreate = (payload: User) => {
-//     setUserStore({...userStore, users: [...userStore.users, payload]})
-// }
-// const userStoreUpdate = (payload: User) => {
-//     console.log('...incomplete')
-// }
-// const userStoreDelete = (id: string) => {
-//     console.log(id)
-//     const remainingUsers = userStore.users.filter(u => u._id !== id)
-//     console.log(remainingUsers)
-//     setUserStore({...userStore, users: remainingUsers })
-// }
-
-// // SELECTORS
-// const getUsersAll = () => userStore.users
-// const getUserById = (id: string): User | undefined => userStore.users.find(u => u._id === id)
-
-// const [actions, setActions] = React.useState<IActions>({
-//         loadUsers: userStoreLoad,
-//         userCreate: userStoreCreate,
-//         userUpdate: userStoreUpdate,
-//         userDelete: userStoreDelete
-// })
-
-// const [selectors, setSelectors] = React.useState<ISelectors>({
-//         users: getUsersAll,
-//         userById: getUserById,
-// })
