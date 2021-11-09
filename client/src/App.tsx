@@ -9,8 +9,10 @@ import {
   Outlet,
   Navigate
 } from "react-router-dom";
+import AppContainer from "./components/AppContainer";
 import AuthProvider from "./components/AuthContext";
 import AuthRequired from "./components/AuthRequired";
+import UserContextProvider from "./components/UserContext";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import UserCreate from "./pages/UserCreate";
@@ -22,30 +24,36 @@ import UserView from "./pages/UserView";
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Navigate to="/user" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/user" element={<Outlet />}>
-            <Route
-              path=""
-              element={
-                <AuthRequired>
-                  <UserList />
-                </AuthRequired>
-              }
-            />
-            <Route path="create" element={<UserCreate />} />
-            <Route path=":userId/update" element={<UserUpdate />} />
-            <Route
-              path=":userId/password-reset"
-              element={<UserPasswordReset />}
-            />
-            <Route path=":userId" element={<UserView />} />
-          </Route>
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <UserContextProvider>
+        <AppContainer>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Navigate to="/user" />} />
+              <Route path="/login" element={<Login />} />
+
+              <Route path="/user" element={<Outlet />}>
+                <Route
+                  path=""
+                  element={
+                    <AuthRequired>
+                      <UserList />
+                    </AuthRequired>
+                  }
+                />
+                <Route path="create" element={<UserCreate />} />
+                <Route path=":userId/update" element={<UserUpdate />} />
+                <Route
+                  path=":userId/password-reset"
+                  element={<UserPasswordReset />}
+                />
+                <Route path=":userId" element={<UserView />} />
+              </Route>
+
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AppContainer>
+      </UserContextProvider>
     </AuthProvider>
   );
 }

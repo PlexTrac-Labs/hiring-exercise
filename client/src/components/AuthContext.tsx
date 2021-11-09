@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import React, { useEffect } from "react";
-import { User } from "../types/User";
+import { User } from "./UserContext";
 
 export interface LoginPayload {
   username: string;
@@ -16,7 +16,6 @@ interface AuthResp {
 interface AuthUtils extends AuthResp {
   authenticate: (payload: LoginPayload) => void;
   axiosInstance: AxiosInstance;
-  // authenticatedApiConfig: (paylaod: {}) => any; // returns an axios object read to use
 }
 
 export const AuthContext = React.createContext<AuthUtils | null>(null);
@@ -30,7 +29,11 @@ const axiosInstance = (token?: string) =>
     }
   });
 
-const AuthProvider = (props: any) => {
+interface props {
+  children: JSX.Element | JSX.Element[];
+}
+
+const AuthProvider: React.FC<props> = ({ children }) => {
   const authenticateUser = (payload: LoginPayload) => {
     axiosInstance()
       .post<AuthResp>("/authenticate", payload)
@@ -68,7 +71,7 @@ const AuthProvider = (props: any) => {
 
   return (
     <AuthContext.Provider value={initialAuthContext}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 };
