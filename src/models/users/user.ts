@@ -6,7 +6,9 @@ const UserSchema = new Mongoose.Schema({
   username: { type: String, required: true },
   admin: { type: Boolean, required: true },
   firstName: { type: String, required: true },
-  lastName: { type: String, required: true }
+  lastName: { type: String, required: true },
+  birthYear: { type: Number, required: true },
+  favColor: { type: String, required: true }
 });
 
 const UserModel = Mongoose.model("User", UserSchema);
