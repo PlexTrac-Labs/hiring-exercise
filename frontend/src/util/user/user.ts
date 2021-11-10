@@ -1,10 +1,11 @@
 import axios from "axios";
 import { CreateUserRequest, UpdateUserRequest } from "./types"
 
-
 // POST
 export const createUser = (payload: CreateUserRequest) => {
     console.log('kdp createUser');
+    return axios.post(`http://localhost:5000/user`, payload)
+        .then(res => res.data);
 }
 
 export const authenticate = (username: string, password: string) => { //kdp revisit these params
@@ -14,13 +15,17 @@ export const authenticate = (username: string, password: string) => { //kdp revi
 }
 
 // PUT
-export const updateUser = (payload: UpdateUserRequest) => {
+export const updateUser = (id: string, payload: UpdateUserRequest) => {
     console.log('kdp update user')
+    return axios.put(`http://localhost:5000/user/${id}`, payload)
+        .then(res => res.data);
 }
 
 //DELETE
 export const deleteUser = (id: string) => {
     console.log('kdp deleteUser')
+    return axios.delete(`http://localhost:5000/user/${id}`)
+        .then(res => res.data);
 }
 
 // GET
