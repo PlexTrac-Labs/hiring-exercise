@@ -15,7 +15,7 @@ export const TopBar = () => {
   }));
 
   const handleLogout = () => {
-    localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(AUTH_TOKEN); //need to cleanup warning
     navigate("/");
   };
 
