@@ -34,8 +34,8 @@ const Login: React.FC = () => {
   }, [isAuthenticated, from, navigate]);
 
   const [form, setForm] = React.useState<LoginPayload>({
-    username: "clint",
-    password: "123456"
+    username: "",
+    password: ""
   });
 
   const login = (f: LoginPayload) => {
