@@ -10,7 +10,8 @@ import {
 import { styled } from "@mui/system";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authenticate, getAllUsers } from "../util/user/user";
+import { AUTH_TOKEN } from "../helpful/constants";
+import { authenticate } from "../util/user/user";
 
 const LoginBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -32,7 +33,7 @@ export const Login = () => {
     const password = event.target.password.value;
     try {
       const auth = await authenticate(username, password);
-      localStorage.setItem("auth_token", auth.auth_token);
+      localStorage.setItem(AUTH_TOKEN, auth.auth_token);
       navigate("list");
     } catch (error) {
       setError(true);
@@ -76,7 +77,9 @@ export const Login = () => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit">Login</Button>
+            <Button color="primary" variant="contained" type="submit">
+              Login
+            </Button>
           </Grid>
         </Grid>
       </form>
