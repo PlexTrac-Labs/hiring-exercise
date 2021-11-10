@@ -1,7 +1,3 @@
-// import React from "react";
-// import logo from "./logo.svg";
-// import "./App.css";
-
 import {
   BrowserRouter,
   Routes,
@@ -15,6 +11,7 @@ import AuthRequired from "./components/AuthRequired";
 import UserContextProvider from "./components/UserContext";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import SignUp from "./pages/SignUp";
 import UserList from "./pages/UserList";
 import UserPasswordReset from "./pages/UserPasswordReset";
 import UserUpdate from "./pages/UserUpdate";
@@ -29,6 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Navigate to="/user" />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/sign-up" element={<SignUp />} />
               <Route path="/password-change" element={<UserPasswordReset />} />
 
               <Route path="/user" element={<Outlet />}>

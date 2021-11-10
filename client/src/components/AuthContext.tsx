@@ -1,76 +1,100 @@
-import axios, { AxiosInstance } from "axios";
-import React, { useEffect } from "react";
+import axios from "axios";
+import React from "react";
 import { User } from "./UserContext";
+
+export const axiosInstance = (token?: string) =>
+  axios.create({
+    baseURL: "http://localhost:5000",
+    timeout: 5000,
+    headers: {
+      Authorization: token ? "Bearer " + token : ""
+    }
+  });
 
 export interface LoginPayload {
   username: string;
   password: string;
 }
 
-interface AuthResp {
+export interface SignUpPayload {
+  username: string;
+  password: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+}
+
+export interface AuthState {
   auth_token?: string;
   user?: User;
-  error?: string;
+  AuthError?: string;
+  SignUpError?: string;
 }
 
-interface AuthUtils extends AuthResp {
-  authenticate: (payload: LoginPayload) => void;
-  axiosInstance: AxiosInstance;
+interface IAuthContext {
+  state: AuthState;
+  dispatch?: React.Dispatch<IAction>;
 }
 
-export const AuthContext = React.createContext<AuthUtils | null>(null);
+interface IAction {
+  type: string;
+  payload: any;
+}
 
-const axiosInstance = (token?: string) =>
-  axios.create({
-    baseURL: "http://localhost:5000",
-    timeout: 5000,
-    headers: {
-      Authorization: "Bearer " + token
-    }
-  });
+// SELECTORS
+export const selectIsAuthenticated = (state: AuthState): boolean =>
+  state.auth_token ? true : false;
+export const selectAuthToken = (state: AuthState): string | undefined =>
+  state.auth_token;
+export const selectAuthenticatedUser = (state: AuthState): User | undefined =>
+  state.user;
+export const selectAuthError = (state: AuthState): string | undefined =>
+  state.AuthError;
+export const selectSignUpError = (state: AuthState): string | undefined =>
+  state.SignUpError;
+
+// ACTIONS
+const authSuccess = "authSuccess";
+export const actionAuthSuccess = (payload: AuthState): IAction => ({
+  type: authSuccess,
+  payload
+});
+const authFail = "authFail";
+export const actionAuthFail = (AuthError: string): IAction => ({
+  type: authFail,
+  payload: AuthError
+});
+// signUpSuccess = 'signUpSuccess'
+// export const ac
+
+// REDUCER
+function reducer(state: AuthState, action: IAction): AuthState {
+  switch (action.type) {
+    case authSuccess:
+      return {
+        ...state,
+        auth_token: action.payload.auth_token,
+        user: action.payload.user
+      };
+    case authFail:
+      return { ...state, AuthError: action.payload };
+    default:
+      return state;
+  }
+}
+
+// CONTEXT PROVIDED
+export const AuthContext = React.createContext<IAuthContext | null>(null);
 
 interface props {
   children: JSX.Element | JSX.Element[];
 }
 
 const AuthProvider: React.FC<props> = ({ children }) => {
-  const authenticateUser = (payload: LoginPayload) => {
-    axiosInstance()
-      .post<AuthResp>("/authenticate", payload)
-      .then(res => {
-        return res.data as AuthResp;
-      })
-      .then(r => setInitialAuthContext({ ...initialAuthContext, ...r }))
-      .catch(r =>
-        setInitialAuthContext({
-          ...initialAuthContext,
-          error: "Username or Password Incorrect"
-        })
-      );
-  };
-
-  const initial: AuthUtils = {
-    axiosInstance: axiosInstance(),
-    authenticate: authenticateUser
-  };
-
-  const [initialAuthContext, setInitialAuthContext] = React.useState<AuthUtils>(
-    initial
-  );
-
-  useEffect(() => {
-    setInitialAuthContext(prevState => ({
-      ...prevState,
-      axiosInstance: axiosInstance(initialAuthContext.auth_token)
-    }));
-    console.log(
-      "axiosInstance updated with token....",
-      initialAuthContext.auth_token
-    );
-  }, [initialAuthContext.auth_token]);
+  const [state, dispatch] = React.useReducer(reducer, {});
 
   return (
-    <AuthContext.Provider value={initialAuthContext}>
+    <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );

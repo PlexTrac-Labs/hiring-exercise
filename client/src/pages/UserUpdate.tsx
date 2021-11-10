@@ -1,6 +1,11 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router";
-import { AuthContext } from "../components/AuthContext";
+import {
+  AuthContext,
+  axiosInstance,
+  selectAuthenticatedUser,
+  selectAuthToken
+} from "../components/AuthContext";
 import ButtonDeleteUser from "../components/ButtonDeleteUser";
 import ButtonNavigateToPasswordChange from "../components/ButtonNavigateToPasswordChange";
 import ButtonNavigateToUserList from "../components/ButtonNavigateToUserList";
@@ -17,7 +22,8 @@ import {
 const UserUpdate: React.FC = () => {
   const { userId } = useParams();
   const auth = React.useContext(AuthContext);
-  const myId = auth?.user?._id;
+  const token = auth ? selectAuthToken(auth.state) : "";
+  const myId = auth ? selectAuthenticatedUser(auth.state)?._id : "";
 
   const userContext = React.useContext(UserContext);
   const dispatch = userContext.dispatch;
@@ -27,7 +33,7 @@ const UserUpdate: React.FC = () => {
 
   const handleSave = (u: User) => {
     console.log("saving...");
-    auth?.axiosInstance
+    axiosInstance(token)
       .put(`user/${userId}`, {
         username: u.username,
         firstName: u.firstName,

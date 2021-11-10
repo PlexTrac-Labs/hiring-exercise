@@ -1,13 +1,14 @@
-import { Container } from "@mui/material";
+import { Container, ContainerProps } from "@mui/material";
+import React from "react";
 
-interface Props {
-  children: JSX.Element;
-}
-
-const AppContainer = ({ children }: Props) => {
+const AppContainer: React.FC<ContainerProps> = (props: ContainerProps) => {
   return (
-    <Container style={{ marginTop: "50px" }} maxWidth="md">
-      {children}
+    <Container
+      maxWidth="md"
+      style={{ marginTop: "50px", ...props.style }}
+      {...props}
+    >
+      {props.children}
     </Container>
   );
 };

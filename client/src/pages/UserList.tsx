@@ -2,7 +2,10 @@ import { AccountCircle } from "@mui/icons-material";
 import { ListItem, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
-import { AuthContext } from "../components/AuthContext";
+import {
+  AuthContext,
+  selectAuthenticatedUser
+} from "../components/AuthContext";
 import ButtonDeleteUser from "../components/ButtonDeleteUser";
 import ButtonNavigateToEdit from "../components/ButtonNavigateToEdit";
 import ButtonNavigateToPasswordChange from "../components/ButtonNavigateToPasswordChange";
@@ -50,8 +53,8 @@ interface rowProps {
 const Row: React.FC<rowProps> = ({ user }) => {
   const navigate = useNavigate();
 
-  const authContext = React.useContext(AuthContext);
-  const myId = authContext?.user?._id;
+  const auth = React.useContext(AuthContext);
+  const myId = auth ? selectAuthenticatedUser(auth.state)?._id : undefined;
 
   return (
     <ListItem
@@ -59,19 +62,19 @@ const Row: React.FC<rowProps> = ({ user }) => {
       button={true}
       onClick={() => navigate(`${user._id}`)}
     >
-      <Cell>
+      <Cell width="10%">
         <AccountCircle fontSize="large" />
       </Cell>
-      <Cell>
+      <Cell width="20%">
         <Typography>{user.username}</Typography>
       </Cell>
-      <Cell>
+      <Cell width="20%">
         <Typography>{user.firstName + " " + user.lastName}</Typography>
       </Cell>
-      <Cell>
+      <Cell width="25%">
         <Typography>{user.email}</Typography>
       </Cell>
-      <Cell style={{ display: "flex", justifyContent: "end" }}>
+      <Cell width="25%" style={{ display: "flex", justifyContent: "end" }}>
         {myId === user._id ? <ButtonNavigateToPasswordChange /> : <></>}
         <ButtonNavigateToEdit relativeNavigation={`${user._id}/update`} />
         <ButtonDeleteUser userId={user._id} />

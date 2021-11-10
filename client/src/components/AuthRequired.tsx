@@ -1,14 +1,15 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router";
-import { AuthContext } from "./AuthContext";
+import { AuthContext, selectIsAuthenticated } from "./AuthContext";
 
 const AuthRequired: React.FC = props => {
   const auth = React.useContext(AuthContext);
+  const isAuthenticated = auth ? selectIsAuthenticated(auth.state) : false;
   const location = useLocation();
 
   return (
     <>
-      {auth?.auth_token ? (
+      {isAuthenticated ? (
         props.children
       ) : (
         <Navigate to="/login" state={{ from: location }} />

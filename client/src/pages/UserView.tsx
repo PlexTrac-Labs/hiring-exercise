@@ -1,6 +1,9 @@
 import React from "react";
 import { useParams } from "react-router";
-import { AuthContext } from "../components/AuthContext";
+import {
+  AuthContext,
+  selectAuthenticatedUser
+} from "../components/AuthContext";
 import ButtonNavigateToEdit from "../components/ButtonNavigateToEdit";
 import ButtonNavigateToPasswordChange from "../components/ButtonNavigateToPasswordChange";
 import ButtonNavigateToUserList from "../components/ButtonNavigateToUserList";
@@ -11,8 +14,8 @@ import { selectUserById, UserContext } from "../components/UserContext";
 const UserView: React.FC = () => {
   const { userId } = useParams();
 
-  const authContext = React.useContext(AuthContext);
-  const myId = authContext?.user?._id;
+  const auth = React.useContext(AuthContext);
+  const myId = auth ? selectAuthenticatedUser(auth.state)?._id : undefined;
 
   const userContext = React.useContext(UserContext);
   const user = selectUserById(userContext?.state, userId);

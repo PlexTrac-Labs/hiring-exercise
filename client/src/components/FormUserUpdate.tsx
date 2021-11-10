@@ -32,19 +32,19 @@ const FormUserUpdate: React.FC<props> = ({ user, viewMode, cancel, save }) => {
     <div style={{ maxWidth: "300px", margin: "auto" }}>
       <TextFieldBase
         label="Username"
-        value={userEdits?.username}
+        value={userEdits?.username || ""}
         onChange={e => setUserEdits({ ...userEdits, username: e.target.value })}
         disabled={viewMode}
       />
       <TextFieldBase
         label="Email"
-        value={userEdits?.email}
+        value={userEdits?.email || ""}
         onChange={e => setUserEdits({ ...userEdits, email: e.target.value })}
         disabled={viewMode}
       />
       <TextFieldBase
         label="First Name"
-        value={userEdits?.firstName}
+        value={userEdits?.firstName || ""}
         onChange={e =>
           setUserEdits({ ...userEdits, firstName: e.target.value })
         }
@@ -52,7 +52,7 @@ const FormUserUpdate: React.FC<props> = ({ user, viewMode, cancel, save }) => {
       />
       <TextFieldBase
         label="Last Name"
-        value={userEdits?.lastName}
+        value={userEdits?.lastName || ""}
         onChange={e => setUserEdits({ ...userEdits, lastName: e.target.value })}
         disabled={viewMode}
       />
@@ -61,14 +61,14 @@ const FormUserUpdate: React.FC<props> = ({ user, viewMode, cancel, save }) => {
         value={userEdits?.birthYear || 2000}
         type="number"
         disabled={viewMode}
-        InputProps={{ inputProps: { min: 1900, max: 2100 } }}
+        InputProps={{ inputProps: { min: 1900, max: 2100 } } || ""}
         onChange={e =>
           setUserEdits({ ...userEdits, birthYear: e.target.value })
         }
       />
       <TextFieldBase
         label="Favorite Color"
-        value={userEdits?.favoriteColor}
+        value={userEdits?.favoriteColor || ""}
         onChange={e =>
           setUserEdits({ ...userEdits, favoriteColor: e.target.value })
         }

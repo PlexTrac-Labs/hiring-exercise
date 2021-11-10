@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthContext } from "./AuthContext";
+import { AuthContext, axiosInstance, selectAuthToken } from "./AuthContext";
 import ButtonDelete from "./ButtonDelete";
 import { actionUserDelete, UserContext } from "./UserContext";
 
@@ -9,11 +9,12 @@ interface props {
 
 const ButtonDeleteUser: React.FC<props> = ({ userId }) => {
   const auth = React.useContext(AuthContext);
+  const token = auth ? selectAuthToken(auth.state) : "";
   const userContext = React.useContext(UserContext);
   const dispatch = userContext.dispatch;
 
   const deleteUser = (uid: string) => {
-    auth?.axiosInstance
+    axiosInstance(token)
       .delete(`/user/${uid}`)
       .then(() => (dispatch ? dispatch(actionUserDelete(uid)) : null))
       .catch(e => console.log(e.response));

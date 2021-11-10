@@ -1,5 +1,5 @@
 import React from "react";
-import { AuthContext } from "./AuthContext";
+import { AuthContext, axiosInstance, selectAuthToken } from "./AuthContext";
 // import { AuthContext } from "./AuthContext"
 
 export interface User {
@@ -95,14 +95,15 @@ const UserContextProvider: React.FC<props> = ({ children }) => {
 
   // load Users whenever UserContext is in use
   const auth = React.useContext(AuthContext);
+  const token = auth ? selectAuthToken(auth?.state) : "";
 
   React.useEffect(() => {
-    auth?.axiosInstance
+    axiosInstance(token)
       .get("/user")
       .then(r => r.data as User[])
       .then(u => (dispatch ? dispatch(actionUsersLoad(u)) : null))
       .catch(e => console.log(e.response));
-  }, [auth?.axiosInstance, dispatch, auth?.auth_token]);
+  }, [dispatch, token]);
 
   React.useEffect(() => {
     console.log(state.users);
