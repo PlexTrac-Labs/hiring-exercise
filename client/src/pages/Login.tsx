@@ -7,7 +7,6 @@ import {
   selectIsAuthenticated,
   LoginPayload,
   axiosInstance,
-  selectAuthToken,
   AuthState,
   actionAuthSuccess,
   actionAuthFail,

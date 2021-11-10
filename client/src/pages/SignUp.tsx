@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import AppContainer from "../components/AppContainer";
 import {
@@ -7,7 +7,6 @@ import {
   AuthContext,
   AuthState,
   axiosInstance,
-  LoginPayload,
   selectSignUpError
 } from "../components/AuthContext";
 import ButtonLogin from "../components/ButtonLogin";
@@ -24,21 +23,6 @@ const SignUp: React.FC = () => {
   const navigate = useNavigate();
   const state = location.state as { from: Location };
   const from = state ? state.from.pathname : "/";
-
-  //   useEffect(() => {
-  //     if (auth?.auth_token) {
-  //       navigate(from, { replace: true });
-  //     }
-  //   }, [auth?.auth_token, from, navigate]);
-
-  //   const [form, setForm] = React.useState<LoginPayload>({
-  //     username: "clint",
-  //     password: "123456"
-  //   });
-
-  //   const login = (f: LoginPayload) => {
-  //     auth?.authenticate(f);
-  //   };
 
   const [signUpForm, setSignUpForm] = React.useState({
     username: "",
@@ -62,7 +46,6 @@ const SignUp: React.FC = () => {
 
   const [loading, setloading] = React.useState<boolean>(false);
   const handleSignUp = () => {
-    // setloading(true)
     axiosInstance()
       .post("/user", signUpForm)
       .then(r => r.data as AuthState)
