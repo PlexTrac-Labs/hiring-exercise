@@ -9,7 +9,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useState } from "react";
-import { getAllUsers } from "../util/user/user";
+import { useNavigate } from "react-router-dom";
+import { authenticate, getAllUsers } from "../util/user/user";
 
 const LoginBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -22,21 +23,18 @@ const LoginBox = styled(Box)(({ theme }) => ({
 }));
 
 export const Login = () => {
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const username = event.target.username.value;
     const password = event.target.password.value;
-
-    console.log(`Authenticate\nUsername: ${username}\nPassword: ${password}`);
-
-    const test = await getAllUsers();
-    console.log("kdp test: ", test);
-
-    if (true) {
-      //kdp push through
-    } else {
+    try {
+      const auth = await authenticate(username, password);
+      localStorage.setItem("auth_token", auth.auth_token);
+      navigate("list");
+    } catch (error) {
       setError(true);
     }
   };
