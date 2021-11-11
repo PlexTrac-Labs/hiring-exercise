@@ -10,7 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { CreateUser } from "../components/CreateUser";
 import { EditDialog } from "../components/EditDialog";
+import { LIST_MIN_WIDTH } from "../helpful/constants";
 import { User } from "../util/user/types";
 import { deleteUser, getAllUsers } from "../util/user/user";
 
@@ -67,10 +69,10 @@ export const ListUsers = () => {
       </Grid>
       <Grid item xs={12}>
         <List>
+          <CreateUser />
           {users.map((user, index) => (
             <ListItem
-              onClick={() => handleUserClick(user)}
-              sx={{ minWidth: 400 }}
+              sx={{ minWidth: LIST_MIN_WIDTH }}
               key={user._id}
               secondaryAction={
                 <Tooltip
@@ -87,7 +89,7 @@ export const ListUsers = () => {
                 </Tooltip>
               }
             >
-              <ListItemButton>
+              <ListItemButton onClick={() => handleUserClick(user)}>
                 <ListItemText>{user.username}</ListItemText>
               </ListItemButton>
             </ListItem>
