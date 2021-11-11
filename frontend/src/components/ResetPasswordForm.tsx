@@ -17,10 +17,6 @@ export const ResetPasswordForm = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    if (matchError) {
-      return;
-    }
-
     const oldPassword = event.target.old.value;
     const newPassword = event.target.new.value;
     const confirm = event.target.confirm.value;
