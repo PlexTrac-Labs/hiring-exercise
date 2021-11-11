@@ -1,5 +1,5 @@
 import { AppBar, Button, Grid, Toolbar } from "@mui/material";
-import { Box, styled } from "@mui/system";
+import { styled } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AUTH_TOKEN, TOP_BAR_HEIGHT } from "../helpful/constants";
