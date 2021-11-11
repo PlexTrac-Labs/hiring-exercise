@@ -2,7 +2,11 @@ import { AppBar, Button, Grid, Toolbar } from "@mui/material";
 import { styled } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AUTH_TOKEN, TOP_BAR_HEIGHT } from "../helpful/constants";
+import {
+  AUTH_TOKEN,
+  CURRENT_USER_ID,
+  TOP_BAR_HEIGHT,
+} from "../helpful/constants";
 import { colors } from "../helpful/style";
 import { PrivatePages } from "../pages";
 
@@ -17,6 +21,7 @@ export const TopBar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem(AUTH_TOKEN);
+    localStorage.removeItem(CURRENT_USER_ID);
     navigate("/");
   };
 

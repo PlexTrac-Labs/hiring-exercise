@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
+import { ResetPasswordForm } from "../components/ResetPasswordForm";
 
 export const ResetPassword = () => {
   return (
@@ -12,6 +13,9 @@ export const ResetPassword = () => {
     >
       <Grid item xs={12}>
         <Typography variant="h3">Reset Password</Typography>
+      </Grid>
+      <Grid item>
+        <ResetPasswordForm />
       </Grid>
     </Grid>
   );

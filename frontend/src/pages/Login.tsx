@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AUTH_TOKEN } from "../helpful/constants";
+import { AUTH_TOKEN, CURRENT_USER_ID } from "../helpful/constants";
 import { authenticate } from "../util/user/user";
 
 export const Login = () => {
@@ -22,6 +22,7 @@ export const Login = () => {
     try {
       const auth = await authenticate(username, password);
       localStorage.setItem(AUTH_TOKEN, auth.auth_token);
+      localStorage.setItem(CURRENT_USER_ID, auth.user._id);
       navigate("users");
     } catch (error) {
       setError(true);

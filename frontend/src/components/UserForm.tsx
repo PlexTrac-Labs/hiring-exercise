@@ -127,7 +127,7 @@ export const UserForm = (props: UserFormProps) => {
               id="birthYear"
               variant="outlined"
               label="Birth Year"
-              defaultValue={user?.birthYear}
+              defaultValue={user?.birthYear === 0 ? 2000 : user?.birthYear}
             />
           </FormControl>
         </Grid>
