@@ -1,18 +1,8 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import {
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Grid, List, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { CreateUser } from "../components/CreateUser";
 import { EditDialog } from "../components/EditDialog";
-import { LIST_MIN_WIDTH } from "../helpful/constants";
+import { UserListItem } from "../components/UserListItem";
 import { User } from "../util/user/types";
 import { deleteUser, getAllUsers } from "../util/user/user";
 
@@ -71,28 +61,12 @@ export const ListUsers = () => {
         <List>
           <CreateUser setUsers={setUsers} />
           {users.map((user, index) => (
-            <ListItem
-              sx={{ minWidth: LIST_MIN_WIDTH }}
+            <UserListItem
               key={user._id}
-              secondaryAction={
-                <Tooltip
-                  title="Delete User"
-                  placement="right"
-                  enterDelay={1000}
-                >
-                  <IconButton
-                    edge="end"
-                    onClick={() => handleDelete(user._id, index)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              }
-            >
-              <ListItemButton onClick={() => handleUserClick(user)}>
-                <ListItemText>{user.username}</ListItemText>
-              </ListItemButton>
-            </ListItem>
+              user={user}
+              handleClick={handleUserClick}
+              handleDelete={() => handleDelete(user._id, index)}
+            />
           ))}
         </List>
       </Grid>
