@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "./List";
+import { ListUsers } from "./ListUsers";
 import { Login } from "./Login";
 import { User } from "./User";
 
@@ -18,7 +18,7 @@ const Pages: PageType[] = [
   {
     title: "List",
     route: "/list",
-    comp: List,
+    comp: ListUsers,
   },
   {
     title: "User",

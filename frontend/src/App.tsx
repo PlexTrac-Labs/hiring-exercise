@@ -23,19 +23,17 @@ function App() {
       <ThemeProvider theme={theme}>
         <TopBar />
         <AppBox>
-          <div>
-            <Routes>
-              {pages.map((page) => {
-                return (
-                  <Route
-                    key={page.route}
-                    path={page.route}
-                    element={<page.comp />}
-                  />
-                );
-              })}
-            </Routes>
-          </div>
+          <Routes>
+            {pages.map((page) => {
+              return (
+                <Route
+                  key={page.route}
+                  path={page.route}
+                  element={<page.comp />}
+                />
+              );
+            })}
+          </Routes>
         </AppBox>
       </ThemeProvider>
     </BrowserRouter>
