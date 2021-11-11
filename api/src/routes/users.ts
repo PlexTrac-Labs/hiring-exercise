@@ -71,6 +71,26 @@ export default function getRoutes(server: Hapi.Server): void {
   });
 
   server.route({
+    method: "PUT",
+    path: "/user/resetPassword/{userId}",
+    options: {
+      auth: false,
+      // auth: "jwt",
+      validate: {
+        params: {
+          userId: Joi.string().required()
+        },
+        payload: {
+          oldPassword: Joi.string().required(),
+          newPassword: Joi.string().required()
+        },
+        failAction
+      }
+    },
+    handler: UserController.resetPassword
+  })
+
+  server.route({
     method: "POST",
     path: "/user",
     options: {

@@ -1,6 +1,7 @@
 import { User } from "models/user";
 import bcrypt from "bcryptjs";
 import UserModel from "../models/users/user";
+import { Reset } from "models/reset";
 
 class UserRepository {
   private async hashPassword(password): Promise<string> {
@@ -17,6 +18,23 @@ class UserRepository {
     });
   }
 
+  private validatePassword = async (
+    userId: string,
+    password: string
+  ): Promise<boolean | never> => {
+    return new Promise((resolve, reject) => {
+      UserModel.findOne( { _id: userId }, (error: Error, user: User) => {
+        if (error || !user) {
+          reject(error ? error : "Not found");
+        } else {
+          bcrypt.compare(password, user.password, (err, isValid) => {
+            resolve(isValid)
+          })
+        }
+      })
+    })
+  }
+
   public async update(update: User, userId: string): Promise<User> {
     return new Promise((resolve, reject) => {
       UserModel.update({ _id: userId }, update, (error, writeResult: User) => {
@@ -27,6 +45,23 @@ class UserRepository {
         }
       });
     });
+  }
+
+  public async resetPassword(payload: Reset, userId: string): Promise<User> {
+    const valid: boolean = await this.validatePassword(userId, payload.oldPassword);
+    const password: string = await this.hashPassword(payload.newPassword);
+    return new Promise((resolve, reject) => {
+      if (!valid) {
+        reject('Password is invalid')
+      }
+      UserModel.update({ _id: userId }, {password}, (error, writeResult: User) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(writeResult)
+        }
+      } )
+    })
   }
 
   public async doesExist(user: User): Promise<boolean> {
