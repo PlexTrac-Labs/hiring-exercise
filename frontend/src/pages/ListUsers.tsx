@@ -17,6 +17,7 @@ import { User } from "../util/user/types";
 import { deleteUser, getAllUsers } from "../util/user/user";
 
 export const ListUsers = () => {
+  const [openEditDialog, setOpenEditDialog] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User>({
     _id: "",
@@ -29,7 +30,6 @@ export const ListUsers = () => {
     favColor: "",
     admin: false,
   });
-  const [openDialog, setOpenDialog] = useState(false);
 
   const handleDelete = (id: string, index: number) => {
     deleteUser(id);
@@ -39,7 +39,7 @@ export const ListUsers = () => {
 
   const handleUserClick = (user: User) => {
     setSelectedUser(user);
-    setOpenDialog(true);
+    setOpenEditDialog(true);
   };
 
   useEffect(() => {
@@ -62,14 +62,14 @@ export const ListUsers = () => {
         <Typography variant="h3">Users</Typography>
         <EditDialog
           user={selectedUser}
-          open={openDialog}
+          open={openEditDialog}
           setUsers={setUsers}
-          onClose={() => setOpenDialog(false)}
+          onClose={() => setOpenEditDialog(false)}
         />
       </Grid>
       <Grid item xs={12}>
         <List>
-          <CreateUser />
+          <CreateUser setUsers={setUsers} />
           {users.map((user, index) => (
             <ListItem
               sx={{ minWidth: LIST_MIN_WIDTH }}

@@ -11,6 +11,7 @@ import { User } from "../util/user/types";
 
 export type UserFormProps = {
   user?: User;
+  showPassword?: boolean;
   submitText: string;
   error: boolean;
   errorMessage: string;
@@ -30,10 +31,19 @@ const defaultProps: Partial<UserFormProps> = {
     favColor: "",
     admin: false,
   },
+  showPassword: false,
 };
 
 export const UserForm = (props: UserFormProps) => {
-  const { user, submitText, error, errorMessage, handleSubmit, handleClose } = {
+  const {
+    user,
+    showPassword,
+    submitText,
+    error,
+    errorMessage,
+    handleSubmit,
+    handleClose,
+  } = {
     ...defaultProps,
     ...props,
   };
@@ -62,6 +72,20 @@ export const UserForm = (props: UserFormProps) => {
             />
           </FormControl>
         </Grid>
+        {showPassword && (
+          <Grid item xs={12} sm={6}>
+            <FormControl>
+              <TextField
+                required
+                type="password"
+                id="password"
+                variant="outlined"
+                label="Password"
+                defaultValue={user?.username}
+              />
+            </FormControl>
+          </Grid>
+        )}
         <Grid item xs={12} sm={6}>
           <FormControl>
             <TextField
