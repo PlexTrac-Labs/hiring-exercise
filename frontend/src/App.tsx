@@ -6,7 +6,7 @@ import "./App.css";
 import { TopBar } from "./components/TopBar";
 import { TOP_BAR_HEIGHT } from "./helpful/constants";
 import { theme } from "./helpful/style";
-import pages from "./pages";
+import { Pages, PrivatePages } from "./pages";
 
 const AppBox = styled(Box)(({ theme }) => ({
   marginTop: TOP_BAR_HEIGHT,
@@ -24,7 +24,16 @@ function App() {
         <TopBar />
         <AppBox>
           <Routes>
-            {pages.map((page) => {
+            {Pages.map((page) => {
+              return (
+                <Route
+                  key={page.route}
+                  path={page.route}
+                  element={<page.comp />}
+                />
+              );
+            })}
+            {PrivatePages.map((page) => {
               return (
                 <Route
                   key={page.route}

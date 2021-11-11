@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AUTH_TOKEN, TOP_BAR_HEIGHT } from "../helpful/constants";
 import { colors } from "../helpful/style";
+import { PrivatePages } from "../pages";
 
 export const TopBar = () => {
   const loggedIn = !!localStorage.getItem(AUTH_TOKEN);
@@ -30,12 +31,15 @@ export const TopBar = () => {
             alignItems="center"
           >
             <Grid item>
-              <Button color="inherit" onClick={() => navigate("/list")}>
-                Users
-              </Button>
-              <Button color="inherit" onClick={() => navigate("/reset")}>
-                Reset Password
-              </Button>
+              {PrivatePages.map((page) => (
+                <Button
+                  key={page.route}
+                  color="inherit"
+                  onClick={() => navigate(page.route)}
+                >
+                  {page.title}
+                </Button>
+              ))}
             </Grid>
             <Button color="inherit" onClick={handleLogout}>
               Logout

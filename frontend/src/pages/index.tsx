@@ -15,9 +15,12 @@ const Pages: PageType[] = [
     route: "/",
     comp: Login,
   },
+];
+
+const PrivatePages: PageType[] = [
   {
-    title: "List",
-    route: "/list",
+    title: "Users",
+    route: "/users",
     comp: ListUsers,
   },
   {
@@ -27,4 +30,4 @@ const Pages: PageType[] = [
   },
 ];
 
-export default Pages;
+export { Pages, PrivatePages };
