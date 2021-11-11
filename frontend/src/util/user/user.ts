@@ -9,7 +9,6 @@ export const createUser = (payload: CreateUserRequest) => {
 }
 
 export const authenticate = (username: string, password: string) => { //kdp revisit these params
-    console.log('kdp authenticate');
     return axios.post(`http://localhost:5000/authenticate`, { username, password})
         .then(res => res.data);
 }

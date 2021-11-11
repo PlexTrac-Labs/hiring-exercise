@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { styled, ThemeProvider } from "@mui/system";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -7,16 +8,21 @@ import { TOP_BAR_HEIGHT } from "./helpful/constants";
 import { theme } from "./helpful/style";
 import pages from "./pages";
 
-const AppDiv = styled("div")({
+const AppBox = styled(Box)(({ theme }) => ({
   marginTop: TOP_BAR_HEIGHT,
-});
+  display: "flex",
+  flexDirection: "column",
+  padding: 15,
+  justifyContent: "center",
+  alignItems: "center",
+}));
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <TopBar />
-        <AppDiv>
+        <AppBox>
           <div>
             <Routes>
               {pages.map((page) => {
@@ -30,7 +36,7 @@ function App() {
               })}
             </Routes>
           </div>
-        </AppDiv>
+        </AppBox>
       </ThemeProvider>
     </BrowserRouter>
   );
