@@ -33,11 +33,7 @@ function App() {
               />
             ))}
             {PrivatePages.map((page) => (
-              <Route
-                key={page.route}
-                path={page.route}
-                element={<PrivateRoute />}
-              >
+              <Route key={page.route} element={<PrivateRoute />}>
                 <Route path={page.route} element={<page.comp />} />
               </Route>
             ))}

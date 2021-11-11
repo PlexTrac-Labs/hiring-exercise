@@ -22,7 +22,7 @@ export const Login = () => {
     try {
       const auth = await authenticate(username, password);
       localStorage.setItem(AUTH_TOKEN, auth.auth_token);
-      navigate("list");
+      navigate("users");
     } catch (error) {
       setError(true);
     }
