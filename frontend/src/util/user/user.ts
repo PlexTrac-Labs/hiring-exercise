@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateUserRequest, UpdateUserRequest } from "./types"
+import { CreateUserRequest, ResetPasswordRequest, UpdateUserRequest } from "./types"
 
 // POST
 export const createUser = (payload: CreateUserRequest) => {
@@ -17,6 +17,11 @@ export const authenticate = (username: string, password: string) => { //kdp revi
 export const updateUser = (id: string, payload: UpdateUserRequest) => {
     console.log('kdp update user')
     return axios.put(`http://localhost:5000/user/${id}`, payload)
+        .then(res => res.data);
+}
+
+export const resetPassword = (id: string, payload: ResetPasswordRequest) => {
+    return axios.put(`http://localhost:5000/user/resetPassword/${id}`, payload)
         .then(res => res.data);
 }
 

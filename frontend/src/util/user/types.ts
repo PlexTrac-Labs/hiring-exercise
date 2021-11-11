@@ -34,3 +34,8 @@ export type AuthResponse = {
     auth_token: string;
     user: User;
 }
+
+export type ResetPasswordRequest = {
+    oldPassword: string;
+    newPassword: string;
+}

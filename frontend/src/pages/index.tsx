@@ -1,7 +1,7 @@
 import React from "react";
 import { ListUsers } from "./ListUsers";
 import { Login } from "./Login";
-import { User } from "./User";
+import { ResetPassword } from "./ResetPassword";
 
 export type PageType = {
   title: string;
@@ -21,9 +21,9 @@ const Pages: PageType[] = [
     comp: ListUsers,
   },
   {
-    title: "User",
-    route: "/user",
-    comp: User,
+    title: "Reset Password",
+    route: "/reset",
+    comp: ResetPassword,
   },
 ];
 

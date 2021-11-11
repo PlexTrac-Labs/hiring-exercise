@@ -1,5 +1,5 @@
-import { AppBar, Button, Toolbar } from "@mui/material";
-import { styled } from "@mui/system";
+import { AppBar, Button, Grid, Toolbar } from "@mui/material";
+import { Box, styled } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AUTH_TOKEN, TOP_BAR_HEIGHT } from "../helpful/constants";
@@ -15,7 +15,7 @@ export const TopBar = () => {
   }));
 
   const handleLogout = () => {
-    localStorage.removeItem(AUTH_TOKEN); //need to cleanup warning
+    localStorage.removeItem(AUTH_TOKEN);
     navigate("/");
   };
 
@@ -23,10 +23,25 @@ export const TopBar = () => {
     <Bar>
       <Toolbar>
         {loggedIn && (
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
-        )}{" "}
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <Button color="inherit" onClick={() => navigate("/list")}>
+                Users
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/reset")}>
+                Reset Password
+              </Button>
+            </Grid>
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          </Grid>
+        )}
       </Toolbar>
     </Bar>
   );
