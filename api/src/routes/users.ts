@@ -24,8 +24,8 @@ export default function getRoutes(server: Hapi.Server): void {
     method: "GET",
     path: "/user",
     options: {
-      auth: false
-      // auth: "jwt"
+      //auth: false
+      auth: "jwt"
     },
     handler: UserController.list
   });
