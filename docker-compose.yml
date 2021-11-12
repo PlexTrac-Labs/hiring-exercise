@@ -7,10 +7,12 @@ services:
       context: frontend
       dockerfile: ./Dockerfile
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
       CHOKIDAR_USEPOLLING: "true"
     ports:
       - 3000:3000
+    volumes:
+      - ./frontend/:/user/src/app
 
   api:
     image: api
@@ -18,7 +20,10 @@ services:
       context: api
       dockerfile: ./Dockerfile
     environment:
-      NODE_ENV: production
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./api/:/user/src/app
     ports:
       - 5000:5000
 
