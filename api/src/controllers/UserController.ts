@@ -136,6 +136,13 @@ class UserController {
         .takeover();
     }
   }
+
+  public async heartbeat(request, h): Promise<Hapi.ServerResponse> {
+      return h.response("Server is Running");
+  }
+
 }
+
+
 
 export default new UserController();

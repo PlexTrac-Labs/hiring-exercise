@@ -1,0 +1,13 @@
+FROM node:14-alpine
+ENV NODE_ENV=production
+ENV REACT_APP_API_HOST=$REACT_APP_HOST
+ENV REACT_APP_PORT=$REACT_APP_PORT
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install --production --silent && mv node_modules ../
+RUN npm install
+COPY . .
+EXPOSE 3000
+RUN chown -R node /usr/src/app
+USER node
+CMD ["npm", "start"]

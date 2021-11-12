@@ -1,9 +1,37 @@
-version: "3.7"
+version: "3.4"
+
 services:
+  frontend:
+    image: frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - ${REACT_APP_PORT}:${REACT_APP_PORT}
+    volumes:
+      - ./frontend/:/user/src/app
+
+  api:
+    image: api
+    build:
+      context: api
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: development
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./api/:/user/src/app
+    ports:
+      - ${API_PORT}:${API_PORT}
+
   mongo:
     image: mongo:latest
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongodb_data_container:/data/db
 
