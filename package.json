@@ -2,6 +2,9 @@
   "name": "hiring-exercise",
   "version": "1.0.0",
   "scripts": {
-    "start": "docker-compose up --build"
+    "build": "docker-compose up --build",
+    "start": "docker-compose up",
+    "stop": "docker-compose stop",
+    "down": "docker-compose down"
   }
 }
