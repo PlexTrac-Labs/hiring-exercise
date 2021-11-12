@@ -30,6 +30,15 @@ export default function getRoutes(server: Hapi.Server): void {
   });
 
   server.route({
+    method: "GET",
+    path: "/heartbeat",
+    options: {
+      auth: false
+    },
+    handler: UserController.heartbeat
+  })
+
+  server.route({
     method: "DELETE",
     path: "/user/{userId}",
     options: {
