@@ -42,6 +42,7 @@ export const ListUsers = () => {
 
   return (
     <Grid
+      data-testid="listUsers"
       container
       direction="column"
       rowSpacing={2}
