@@ -1,11 +1,13 @@
 name: Verify Frontend
 on:
-  push:
+  pull_request:
     path:
       - frontend/**
 jobs:
   Test-Action:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Running"
-      - run: npm run build
+      - name: Building Frontend
+       run: cd frontend && npm run build
+      - name: Test
+       run: cd frontend && npm run test
