@@ -1,6 +1,6 @@
 name: Verify API
 on:
-  push:
+  pull_request:
     path:
       - api/**
 jobs:
