@@ -26,7 +26,7 @@ export const TopBar = () => {
   };
 
   return (
-    <Bar>
+    <Bar data-testid="topbar">
       <Toolbar>
         {loggedIn && (
           <Grid

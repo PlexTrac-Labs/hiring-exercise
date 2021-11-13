@@ -112,6 +112,7 @@ export const UserForm = (props: UserFormProps) => {
           <FormControl>
             <TextField
               required
+              type="email"
               id="email"
               variant="outlined"
               label="Email"
