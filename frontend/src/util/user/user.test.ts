@@ -1,6 +1,6 @@
 import axios from "axios";
 import { CreateUserRequest, ResetPasswordRequest, UpdateUserRequest, User } from "./types";
-import { authenticate, createUser, deleteUser, getAllUsers, getUser, resetPassword, sum, updateUser } from "./user";
+import { authenticate, createUser, deleteUser, getAllUsers, getUser, resetPassword, updateUser } from "./user";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
