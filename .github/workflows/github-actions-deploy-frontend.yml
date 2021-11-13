@@ -1,0 +1,17 @@
+name: Deploy Frontend
+on:
+  push:
+    branches:
+      - master
+    path:
+      - frontend/**
+jobs:
+  Check-API:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Building Frontend
+        run: echo "Build"
+      - name: Testing Frontend
+        run: echo "Test"
+      - name: Deploying Frontend
+        run: echo "Deploy"

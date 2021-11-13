@@ -4,12 +4,10 @@ on:
     path:
       - frontend/**
 jobs:
-  Test-Action:
+  Check-Frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Testing
-        run: ls -la
       - name: Building Frontend
-        run: cd frontend && npm run build
+        run: echo "Build"
       - name: Test
-        run: cd frontend && npm run test
+        run: echo "Test"

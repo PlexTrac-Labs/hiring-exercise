@@ -1,6 +1,8 @@
-name: Verify API
+name: Deploy API
 on:
   push:
+    branches:
+      - master
     path:
       - api/**
 jobs:
@@ -11,3 +13,5 @@ jobs:
         run: echo "Build"
       - name: Testing API
         run: echo "Test"
+      - name: Deploying API
+        run: echo "Deploy"
