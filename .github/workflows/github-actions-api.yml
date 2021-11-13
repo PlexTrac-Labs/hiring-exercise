@@ -1,0 +1,13 @@
+name: Verify API
+on:
+  pull_request:
+    path:
+      - api/**
+jobs:
+  Check-API:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Building API
+        run: echo "Build"
+      - name: Testing API
+        run: echo "Test"

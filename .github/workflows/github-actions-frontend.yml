@@ -1,0 +1,13 @@
+name: Verify Frontend
+on:
+  pull_request:
+    path:
+      - frontend/**
+jobs:
+  Check-Frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Building Frontend
+        run: echo "Build"
+      - name: Test
+        run: echo "Test"
