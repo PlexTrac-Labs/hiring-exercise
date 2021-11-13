@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<DocumentFragment>
+  <div>
+          
+    <ul
+      data-testid="list"
+    >
+              
+      <li>
+        title 1
+      </li>
+      <li>
+        title 2
+      </li>
+            
+    </ul>
+        
+  </div>
+</DocumentFragment>
+`;
