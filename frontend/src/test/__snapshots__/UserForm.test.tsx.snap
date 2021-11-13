@@ -187,7 +187,7 @@ exports[`renders 1`] = `
                 class="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                 id="email"
                 required=""
-                type="text"
+                type="email"
                 value=""
               />
               <fieldset
