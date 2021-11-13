@@ -1,0 +1,10 @@
+{
+  "name": "hiring-exercise",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "docker-compose up --build",
+    "start": "docker-compose up",
+    "stop": "docker-compose stop",
+    "down": "docker-compose down"
+  }
+}

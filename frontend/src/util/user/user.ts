@@ -13,42 +13,39 @@ const config = () => {
 
 // POST
 export const createUser = (payload: CreateUserRequest) => {
-    return axios.post(`http://localhost:5000/user`, payload)
+    return axios.post(`${process.env.REACT_APP_API_HOST}/user`, payload)
         .then(res => res.data);
 }
 
-export const authenticate = (username: string, password: string) => { //kdp revisit these params
-    return axios.post(`http://localhost:5000/authenticate`, { username, password})
+export const authenticate = (username: string, password: string) => {
+    return axios.post(`${process.env.REACT_APP_API_HOST}/authenticate`, { username, password})
         .then(res => res.data);
 }
 
 // PUT
 export const updateUser = (id: string, payload: UpdateUserRequest) => {
-    return axios.put(`http://localhost:5000/user/${id}`, payload, config())
+    return axios.put(`${process.env.REACT_APP_API_HOST}/user/${id}`, payload, config())
         .then(res => res.data);
 }
 
 export const resetPassword = (id: string, payload: ResetPasswordRequest) => {
-    return axios.put(`http://localhost:5000/user/resetPassword/${id}`, payload, config())
+    return axios.put(`${process.env.REACT_APP_API_HOST}/user/resetPassword/${id}`, payload, config())
         .then(res => res.data);
 }
 
 //DELETE
 export const deleteUser = (id: string) => {
-    return axios.delete(`http://localhost:5000/user/${id}`, config())
+    return axios.delete(`${process.env.REACT_APP_API_HOST}/user/${id}`, config())
         .then(res => res.data);
 }
 
 // GET
-
 export const getUser = (id: string) => {
-    return axios.get(`http://localhost:5000/user/${id}`, config())
+    return axios.get(`${process.env.REACT_APP_API_HOST}/user/${id}`, config())
         .then(res => res.data)
 }
 
 export const getAllUsers = () => {
-    //const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOGQ4OTRlYjkyNjI0ZWEyYmJhZTkxMSIsInVzZXJuYW1lIjoibmVyZCIsImlhdCI6MTYzNjY3MzQ2OSwiZXhwIjoxNjM2Njc3MDY5fQ.biout-LR9d10roc8afzjKRq8yVVPUGiU0MOFpkhE2Sw';
-
-    return axios.get(`http://localhost:5000/user`, config())
+    return axios.get(`${process.env.REACT_APP_API_HOST}/user`, config())
     .then(res => res.data)
 }
