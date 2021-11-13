@@ -1,0 +1,10 @@
+name: Verify API
+on:
+  push:
+    path:
+      - api/**
+jobs:
+  Test-Action:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running"

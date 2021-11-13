@@ -1,0 +1,10 @@
+name: Verify Frontend
+on:
+  push:
+    path:
+      - frontend/**
+jobs:
+  Test-Action:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running"
