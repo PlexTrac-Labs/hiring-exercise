@@ -1,5 +1,21 @@
 version: "3.7"
 services:
+  user-manager:
+    build: .
+    volumes:
+      - "./user-manager:/app"
+    ports:
+      - 8080:8080
+    depends_on:
+      - hapi
+  hapi:
+    build: .
+    volumes:
+      - "./api:/app"
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
   mongo:
     image: mongo:latest
     ports:
@@ -8,4 +24,4 @@ services:
       - mongodb_data_container:/data/db
 
 volumes:
-  mongodb_data_container:
+  mongodb_data_container: null

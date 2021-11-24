@@ -4,13 +4,27 @@ import Mongoose from "mongoose";
 import validate from "./auth/validation";
 import { options } from "./config";
 
-const HOST = process.env.host || "localhost";
-const PORT = process.env.port || 5000;
-const DATABASE = process.env.database || "mongodb://localhost:27017/local"; // todo: dockerize
+const HOST = "0.0.0.0";
+const PORT = 5000;
+// Alex: instead of using local host we can use the service name 'mongo' from docker-compose to resolve the hostname
+const DATABASE = "mongodb://mongo:27017/local";
 console.log(DATABASE);
 Mongoose.connect(DATABASE);
 
-const server: Hapi.Server = new Hapi.Server({ host: HOST, port: PORT });
+// Alex: Added this to allow the front-end to leverage the local API
+const localDevCORSPolicy = {
+  cors: {
+    origin: ["http://localhost:8080"],
+    headers: ["Accept", "Content-Type", "Authorization"],
+    additionalHeaders: ["X-Requested-With"]
+  }
+};
+
+const server: Hapi.Server = new Hapi.Server({
+  host: HOST,
+  port: PORT,
+  routes: localDevCORSPolicy
+});
 
 async function start(): Promise<void> {
   try {

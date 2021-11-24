@@ -2,23 +2,32 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "author": "josh conlin",
   "scripts": {
     "build": "tsc",
     "lint": "",
     "dev": "NODE_ENV=dev nodemon --max-old-space-size=8192",
     "prestart": "npm run build",
-    "start": "node ./build/index.js --max-old-space-size=8192",
-    "test": "mocha --recursive",
     "prettier": "prettier \"**/*.+(ts|js|jsx|json|css|less|)\"",
-    "prettier:format": "npm run prettier -- --write"
+    "prettier:format": "npm run prettier -- --write",
+    "start": "node ./build/index.js --max-old-space-size=8192",
+    "test": "mocha --recursive"
   },
-  "keywords": [
-    "typescript",
-    "hapi"
-  ],
-  "author": "josh conlin",
-  "license": "ISC",
+  "main": "build/index.js",
+  "dependencies": {
+    "@hapi/hapi": "18.4.0",
+    "axios": "^0.24.0",
+    "bcryptjs": "2.4.3",
+    "good": "8.1.2",
+    "good-console": "8.0.0",
+    "good-file": "6.0.1",
+    "good-squeeze": "5.1.0",
+    "hapi-auth-jwt2": "8.8.1",
+    "hapi-pino": "6.3.0",
+    "joi": "14.3.1",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.8.11"
+  },
   "devDependencies": {
     "@types/hapi": "18.0.3",
     "@types/node": "13.7.0",
@@ -32,28 +41,22 @@
     "nodemon": "2.0.2",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
+    "sass": "~1.32.0",
+    "sass-loader": "^10.0.0",
     "ts-node": "8.6.2",
     "typescript": "4.0.3"
+  },
+  "engines": {
+    "node": "13"
   },
   "husky": {
     "hooks": {
       "pre-commit": "tsc && pretty-quick --staged"
     }
   },
-  "engines": {
-    "node": "13"
-  },
-  "dependencies": {
-    "@hapi/hapi": "18.4.0",
-    "bcryptjs": "2.4.3",
-    "good": "8.1.2",
-    "good-console": "8.0.0",
-    "good-file": "6.0.1",
-    "good-squeeze": "5.1.0",
-    "hapi-auth-jwt2": "8.8.1",
-    "hapi-pino": "6.3.0",
-    "joi": "14.3.1",
-    "jsonwebtoken": "8.5.1",
-    "mongoose": "5.8.11"
-  }
+  "keywords": [
+    "typescript",
+    "hapi"
+  ],
+  "license": "ISC"
 }
