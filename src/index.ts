@@ -10,7 +10,11 @@ const DATABASE = process.env.database || "mongodb://localhost:27017/local"; // t
 console.log(DATABASE);
 Mongoose.connect(DATABASE);
 
-const server: Hapi.Server = new Hapi.Server({ host: HOST, port: PORT });
+const server: Hapi.Server = new Hapi.Server({
+  host: HOST,
+  port: PORT,
+  routes: { cors: true }
+});
 
 async function start(): Promise<void> {
   try {
