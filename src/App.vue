@@ -1,17 +1,20 @@
 <template>
   <div class="container-fluid">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <Home />
+    <div class="border border-dark mb-5">
+      <h1>User Management System</h1>
+    </div>
+    <!-- <Home /> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Home from "./components/Home.vue";
+//import Home from "./components/Home.vue";
 
 export default {
   name: "App",
   components: {
-    Home
+    //Home,
   }
 };
 </script>
@@ -24,5 +27,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: lightgrey;
+}
+html {
+  background-color: lightgrey;
 }
 </style>

@@ -33,6 +33,7 @@
     "jsonwebtoken": "8.5.1",
     "mongoose": "5.8.11",
     "vue": "^3.0.0",
+    "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

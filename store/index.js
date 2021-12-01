@@ -1,9 +1,5 @@
-//import Vue from 'vue';
-// import Vuex from 'vuex';
 import { createStore } from "vuex";
 import axios from "axios";
-
-// Vue.use(Vuex);
 
 let base = "http://localhost:5000/";
 
@@ -14,11 +10,15 @@ let api = axios.create({
 
 const store = createStore({
   state: {
-    users: []
+    users: [],
+    isAuthenticated: true
   },
   getters: {
     users: state => {
       return state.users;
+    },
+    authenticated: state => {
+      return state.isAuthenticated;
     }
   },
   mutations: {
