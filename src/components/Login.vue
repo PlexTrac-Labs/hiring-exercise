@@ -4,15 +4,16 @@
   </div>
   <div class="row mt-4">
     <div class="col-6 offset-3">
-      <form>
+      <form v-on:submit="submit">
         <div class="form-group">
-          <label for="emailInput">Email address</label>
+          <label for="userNameInput">Username</label>
           <input
-            type="email"
             class="form-control"
-            id="emailInput"
+            id="userNameInput"
             aria-describedby="emailHelp"
-            placeholder="Enter email"
+            placeholder="Username"
+            required
+            v-model="username"
           />
         </div>
         <div class="form-group">
@@ -22,6 +23,8 @@
             class="form-control"
             id="passwordInput"
             placeholder="Password"
+            required
+            v-model="password"
           />
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -30,7 +33,24 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data: function() {
+    return {
+      username: "",
+      password: ""
+    };
+  },
+  methods: {
+    submit(event) {
+      event.preventDefault();
+      let payload = {
+        username: this.username,
+        password: this.password
+      };
+      this.$store.dispatch("authenticate", payload);
+    }
+  }
+};
 </script>
 <style scoped>
 label {

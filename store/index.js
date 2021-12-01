@@ -1,5 +1,7 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import router from "../router";
+import createPersistedState from "vuex-persistedstate";
 
 let base = "http://localhost:5000/";
 
@@ -11,22 +13,23 @@ let api = axios.create({
 const store = createStore({
   state: {
     users: [],
-    isAuthenticated: true
+    userId: ""
   },
   getters: {
     users: state => {
       return state.users;
-    },
-    authenticated: state => {
-      return state.isAuthenticated;
     }
   },
   mutations: {
     setUsers(state, users) {
       state.users = users;
+    },
+    setUserId(state, data) {
+      state.userId = data.user._id;
     }
   },
   actions: {
+    //   Get All
     async listUsers({ commit }) {
       try {
         const response = await api.get("user");
@@ -34,8 +37,21 @@ const store = createStore({
       } catch (error) {
         console.log(error);
       }
+    },
+    // Login
+    async authenticate({ commit }, payload) {
+      try {
+        const response = await api.post("authenticate", payload);
+        commit("setUserId", response.data);
+        if (response.data.user._id) {
+          router.push("/");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  },
+  plugins: [createPersistedState()]
 });
 
 export default store;

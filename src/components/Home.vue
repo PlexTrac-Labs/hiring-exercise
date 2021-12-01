@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-sm" v-for="user in users" v-bind:key="user.id">
-      <User v-if="authenticated" :person="user" v-bind:key="user.id" />
+      <User :person="user" v-bind:key="user.id" />
     </div>
   </div>
 </template>
@@ -15,9 +15,6 @@ export default {
   computed: {
     users() {
       return this.$store.getters.users;
-    },
-    authenticated() {
-      return this.$store.getters.authenticated;
     }
   },
   created() {

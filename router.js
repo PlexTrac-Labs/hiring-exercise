@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "./src/components/Home.vue";
 import Login from "./src/components/Login.vue";
-//import store from "./store/index";
+import store from "./store/index";
 
 const router = createRouter({
   routes: [
@@ -12,16 +12,9 @@ const router = createRouter({
   mode: "history"
 });
 
-// router.beforeEach((to, from, next) => {
-//     const publicPages = ['/login'];
-//     const authRequired = !publicPages.includes(to.path);
-//     const loggedIn = store.isAuthenticated;
-
-//     if (authRequired && !loggedIn) {
-//       return next('/login');
-//     }
-
-//     next();
-// });
+router.beforeEach((to, from, next) => {
+  if (to.name !== "login" && !store.state.userId) next({ name: "login" });
+  else next();
+});
 
 export default router;
