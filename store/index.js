@@ -13,11 +13,15 @@ let api = axios.create({
 const store = createStore({
   state: {
     users: [],
-    userId: ""
+    userId: "",
+    user: {}
   },
   getters: {
     users: state => {
       return state.users;
+    },
+    user: state => {
+      return state.user;
     }
   },
   mutations: {
@@ -26,14 +30,26 @@ const store = createStore({
     },
     setUserId(state, data) {
       state.userId = data.user._id;
+    },
+    setUser(state, user) {
+      state.user = user;
     }
   },
   actions: {
-    //   Get All
+    // Get All
     async listUsers({ commit }) {
       try {
         const response = await api.get("user");
         commit("setUsers", response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    // Get by Id
+    async getUserById({ commit }, payload) {
+      try {
+        const response = await api.get("user/" + payload._id);
+        commit("setUser", response.data);
       } catch (error) {
         console.log(error);
       }
