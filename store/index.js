@@ -54,6 +54,20 @@ const store = createStore({
         console.log(error);
       }
     },
+    // Put
+    async updateUser({ commit }, payload) {
+      try {
+        const response = await api.put("user/" + payload._id, {
+          username: payload.username,
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.email
+        });
+        if (response) commit("setUser", payload);
+      } catch (error) {
+        console.log(error);
+      }
+    },
     // Login
     async authenticate({ commit }, payload) {
       try {
