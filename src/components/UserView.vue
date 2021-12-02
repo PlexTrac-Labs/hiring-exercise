@@ -15,7 +15,9 @@
         >
           Edit User
         </button>
-        <button class="btn btn-danger ml-1">Delete User</button>
+        <button class="btn btn-danger ml-1" @click="deleteUser()">
+          Delete User
+        </button>
       </div>
     </div>
     <!-- MODAL TODO clean this up > too long-->
@@ -102,7 +104,7 @@ export default {
   },
   data: function() {
     return {
-      // FIXME update user pull, not updating on user switch, have to refresh page
+      // FIXME update user pull, not updating on user switch, have to refresh page > Data evals before computed
       username: this.$store.getters.user.username,
       firstName: this.$store.getters.user.firstName,
       lastName: this.$store.getters.user.lastName,
@@ -121,6 +123,9 @@ export default {
       });
       // eslint-disable-next-line no-undef
       $("#close").click();
+    },
+    deleteUser() {
+      this.$store.dispatch("deleteUser", { _id: this.$route.params.userId });
     }
   }
 };

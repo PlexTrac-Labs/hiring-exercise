@@ -57,13 +57,23 @@ const store = createStore({
     // Put
     async updateUser({ commit }, payload) {
       try {
-        const response = await api.put("user/" + payload._id, {
+        await api.put("user/" + payload._id, {
           username: payload.username,
           firstName: payload.firstName,
           lastName: payload.lastName,
           email: payload.email
         });
-        if (response) commit("setUser", payload);
+        commit("setUser", payload);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //  Delete
+    async deleteUser({ dispatch }, payload) {
+      try {
+        const response = await api.delete("user/" + payload._id);
+        dispatch("listUsers");
+        if (response) router.push("/");
       } catch (error) {
         console.log(error);
       }
