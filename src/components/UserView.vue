@@ -6,6 +6,8 @@
         <ul>
           <li>Username: {{ user.username }}</li>
           <li>Email: {{ user.email }}</li>
+          <li>Birth Year: {{ user.birthYear }}</li>
+          <li>Favorite Color: {{ user.favoriteColor }}</li>
           <li>Is Admin: {{ user.admin }}</li>
         </ul>
         <button
