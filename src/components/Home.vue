@@ -1,6 +1,6 @@
 <template>
   <div class="row mb-3 border-bottom border-dark">
-    <div class="col-3">
+    <div class="col-md-3 mb-2 col-sm-12">
       <div class="border border-dark p-3 bg-light">
         <h3>
           Welcome {{ loggedInUser.firstName }} {{ loggedInUser.lastName }}
@@ -21,7 +21,7 @@
         </button>
       </div>
     </div>
-    <div class="col-5 offset-1">
+    <div class="col-md-5 offset-md-1 col-sm-12">
       <p>
         {{ loggedInUser.firstName }}, welcome to the user management system!
         This system is designed to help you with all your user management needs.

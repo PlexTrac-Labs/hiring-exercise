@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="card col-6 offset-3 bg-light">
+    <div class="card col-md-6 offset-md-3 col-sm-12 bg-light">
       <div class="card-body">
         <h3>{{ user.firstName }} {{ user.lastName }}</h3>
         <ul>

@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-6 offset-3">
+    <div class="col-md-6 offset-md-3 col-sm-12">
       <form v-on:submit="reset" class="border border-dark p-5">
         <div class="form-group form-horizontal control-label text-left">
           <label for="oldPasswordInput">Enter Old Password</label>
