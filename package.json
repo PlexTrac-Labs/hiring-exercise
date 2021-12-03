@@ -93,5 +93,16 @@
     "hapi"
   ],
   "license": "ISC",
-  "readme": "ERROR: No README data found!"
+  "readme": "ERROR: No README data found!",
+  "resolve": {
+    "extensions": [
+      ".wasm",
+      ".ts",
+      ".tsx",
+      ".mjs",
+      ".cjs",
+      ".js",
+      ".json"
+    ]
+  }
 }
