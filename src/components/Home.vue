@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm" v-for="user in users" v-bind:key="user.id">
+    <div class="col mt-3" v-for="user in users" v-bind:key="user.id">
       <User :person="user" v-bind:key="user.id" />
     </div>
   </div>
