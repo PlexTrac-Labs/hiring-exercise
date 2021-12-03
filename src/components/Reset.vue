@@ -7,37 +7,37 @@
   </div>
   <div class="row mt-4">
     <div class="col-6 offset-3">
-      <form v-on:submit="reset">
-        <div class="form-group">
+      <form v-on:submit="reset" class="border border-dark p-5">
+        <div class="form-group form-horizontal control-label text-left">
           <label for="oldPasswordInput">Enter Old Password</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control bg-light"
             id="oldPasswordInput"
             aria-describedby="emailHelp"
-            placeholder="Old Password"
+            placeholder="Enter old password"
             required
             v-model="oldPassword"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group form-horizontal control-label text-left">
           <label for="newPasswordInput">New Password</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control bg-light"
             id="newPasswordInput"
-            placeholder="New Password"
+            placeholder="Enter new password"
             required
             v-model="newPassword"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group form-horizontal control-label text-left">
           <label for="newPasswordInput2">Confirm New Password</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control bg-light"
             id="newPasswordInput2"
-            placeholder="Confirm New Password"
+            placeholder="Confirm new password"
             required
             v-model="passwordConfirm"
           />

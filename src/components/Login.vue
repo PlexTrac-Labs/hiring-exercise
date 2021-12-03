@@ -4,25 +4,25 @@
   </div>
   <div class="row mt-4">
     <div class="col-6 offset-3">
-      <form v-on:submit="submit">
-        <div class="form-group">
+      <form v-on:submit="submit" class="border border-dark p-5">
+        <div class="form-group form-horizontal control-label text-left">
           <label for="userNameInput">Username</label>
           <input
-            class="form-control"
+            class="form-control bg-light"
             id="userNameInput"
             aria-describedby="emailHelp"
-            placeholder="Username"
+            placeholder="Enter username"
             required
             v-model="username"
           />
         </div>
-        <div class="form-group">
+        <div class="form-group form-horizontal control-label text-left">
           <label for="passwordInput">Password</label>
           <input
             type="password"
-            class="form-control"
+            class="form-control bg-light"
             id="passwordInput"
-            placeholder="Password"
+            placeholder="Enter password"
             required
             v-model="password"
           />

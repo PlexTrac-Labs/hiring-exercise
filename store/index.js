@@ -36,6 +36,9 @@ const store = createStore({
     },
     setUser(state, user) {
       state.user = user;
+    },
+    logout(state) {
+      (state.user = {}), (state.userId = ""), state.users - [];
     }
   },
   actions: {
@@ -99,6 +102,16 @@ const store = createStore({
         await api.put("reset/" + payload._id, { password: payload.password });
         dispatch("getUserById", payload);
         router.push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    logout({ commit }) {
+      try {
+        if (this.state.userId) {
+          commit("logout");
+          router.push("/login");
+        }
       } catch (error) {
         console.log(error);
       }

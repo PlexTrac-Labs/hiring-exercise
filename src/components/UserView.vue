@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="card col-6 offset-3">
+    <div class="card col-6 offset-3 bg-light">
       <div class="card-body">
         <h3>{{ user.firstName }} {{ user.lastName }}</h3>
         <ul>
@@ -22,7 +22,7 @@
         </button>
       </div>
     </div>
-    <!-- MODAL TODO clean this up > too long-->
+    <!-- MODAL TODO clean this up > too long > also making a modal component could fix issue-->
     <div
       class="modal fade"
       id="editUserModal"
@@ -102,6 +102,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+    loggedInUser() {
+      return this.$store.getters.userId;
     }
   },
   data: function() {
@@ -127,6 +130,9 @@ export default {
       $("#close").click();
     },
     deleteUser() {
+      if (this.$route.params.userId == this.loggedInUser) {
+        return;
+      }
       this.$store.dispatch("deleteUser", { _id: this.$route.params.userId });
     }
   }

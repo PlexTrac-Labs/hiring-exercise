@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="border border-dark mb-5">
+    <div class="border border-dark mb-5 title">
       <h1>User Management System</h1>
     </div>
     <!-- <Home /> -->
@@ -27,9 +27,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-  background-color: lightgrey;
+  background-color: #b0c4de;
+}
+.title {
+  background-color: #d4dfed;
+  padding: 15px;
+}
+.bg-light {
+  background-color: #d4dfed !important;
 }
 html {
-  background-color: lightgrey;
+  background-color: lightsteelblue;
 }
 </style>

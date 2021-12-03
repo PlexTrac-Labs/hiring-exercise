@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="card border border-dark">
+    <div class="card border border-dark bg-light">
       <div class="card-body">
         <h1>{{ person.firstName }} {{ person.lastName }}</h1>
         <p>Email: {{ person.email }}</p>
-        <button class="btn" @click="viewUser()">View User</button>
+        <button class="btn btn-primary" @click="viewUser()">View User</button>
         <!-- set on click to get user by id and push to new page or modal with user info -->
       </div>
     </div>
@@ -26,4 +26,4 @@ export default {
   }
 };
 </script>
-<style lang=""></style>
+<style scoped></style>
