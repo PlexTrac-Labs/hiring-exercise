@@ -22,6 +22,9 @@ const store = createStore({
     },
     user: state => {
       return state.user;
+    },
+    userId: state => {
+      return state.userId;
     }
   },
   mutations: {
@@ -86,6 +89,16 @@ const store = createStore({
         if (response.data.user._id) {
           router.push("/");
         }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    //  Reset PW
+    async resetPassword({ dispatch }, payload) {
+      try {
+        await api.put("reset/" + payload._id, { password: payload.password });
+        dispatch("getUserById", payload);
+        router.push("/");
       } catch (error) {
         console.log(error);
       }

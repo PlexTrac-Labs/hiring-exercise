@@ -90,4 +90,19 @@ export default function getRoutes(server: Hapi.Server): void {
     },
     handler: UserController.create
   });
+
+  server.route({
+    method: "PUT",
+    path: "/reset/{userId}",
+    options: {
+      auth: false,
+      validate: {
+        payload: {
+          password: Joi.string().required()
+        },
+        failAction
+      }
+    },
+    handler: UserController.resetPassword
+  });
 }

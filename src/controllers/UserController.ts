@@ -113,6 +113,27 @@ class UserController {
         .takeover();
     }
   }
+
+  public async resetPassword(request, h): Promise<Hapi.ServerResponse> {
+    try {
+      const credentials: Credentials = request.auth.credentials;
+      const update: User = request.payload;
+      const userId: string = request.params.userId;
+
+      const user: User = await UserRepository.getById(userId);
+
+      UserController.validateAccess(credentials, user);
+
+      const updated: User = await UserRepository.updatePassword(update, userId);
+
+      return h.response(updated);
+    } catch (error) {
+      return h
+        .response({ status: "error", error: error.message })
+        .code(400)
+        .takeover();
+    }
+  }
 }
 
 export default new UserController();

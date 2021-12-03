@@ -95,6 +95,20 @@ class UserRepository {
       });
     });
   }
+
+  public async updatePassword(update: User, userId: string): Promise<User> {
+    const password: string = await this.hashPassword(update.password);
+    update.password = password;
+    return new Promise((resolve, reject) => {
+      UserModel.update({ _id: userId }, update, (error, writeResult: User) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(writeResult);
+        }
+      });
+    });
+  }
 }
 
 export default new UserRepository();

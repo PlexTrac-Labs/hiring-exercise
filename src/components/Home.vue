@@ -1,4 +1,18 @@
 <template>
+  <div class="row mb-3">
+    <div class="col">
+      <button
+        class="btn btn-primary"
+        v-if="loggedInUser"
+        @click="openResetPage()"
+      >
+        Reset Password
+      </button>
+    </div>
+    <div class="col">
+      <button class="btn btn-danger" v-if="loggedInUser">Logout</button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm" v-for="user in users" v-bind:key="user.id">
       <User :person="user" v-bind:key="user.id" />
@@ -15,6 +29,9 @@ export default {
   computed: {
     users() {
       return this.$store.getters.users;
+    },
+    loggedInUser() {
+      return this.$store.getters.userId;
     }
   },
   created() {
@@ -22,6 +39,11 @@ export default {
   },
   components: {
     User
+  },
+  methods: {
+    openResetPage() {
+      this.$router.push("/passwordReset/" + this.loggedInUser);
+    }
   }
 };
 </script>
