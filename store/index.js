@@ -67,7 +67,9 @@ const store = createStore({
           username: payload.username,
           firstName: payload.firstName,
           lastName: payload.lastName,
-          email: payload.email
+          email: payload.email,
+          favoriteColor: payload.favoriteColor,
+          birthYear: payload.birthYear
         });
         commit("setUser", payload);
       } catch (error) {
