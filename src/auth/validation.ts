@@ -1,6 +1,6 @@
-import { Auth } from "auth/auth";
-import { User } from "models/user";
-import UserRepository from "../repositories/UserRepository";
+import { Auth } from 'auth/auth';
+import { User } from 'models/user';
+import UserRepository from '../repositories/UserRepository';
 
 const validate = async function(decoded, request, h): Promise<Auth> {
   try {
@@ -8,12 +8,12 @@ const validate = async function(decoded, request, h): Promise<Auth> {
     return {
       isValid: true,
       credentials: {
-        scope: user.admin ? "admin" : "",
-        userId: user._id
+        scope: user.admin ? 'admin' : '',
+        userId: user._id!
       }
     };
   } catch (error) {
-    return { credentials: { scope: "", userId: "" }, isValid: false };
+    return { credentials: { scope: '', userId: '' }, isValid: false };
   }
 };
 

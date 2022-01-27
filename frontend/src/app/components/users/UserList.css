@@ -1,0 +1,45 @@
+.UserListFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+.UserListTitle {
+  padding: 10px;
+  font-size: 2em;
+}
+
+.UserGrid {
+  width: 50%;
+  height: 400px;
+}
+
+.ColumnHeader {
+  background-color: #55697d;
+  color: #fff;
+}
+
+.GridActions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.UserListFooter {
+  padding-top: 20px;
+}
+
+.UserListButtonBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.UserListButtonSpacer {
+  min-width: 10px;
+}
+
+.UserListButton {
+  padding-top: 10px;
+}

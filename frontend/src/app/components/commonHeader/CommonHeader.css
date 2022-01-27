@@ -1,0 +1,35 @@
+.CommonHeaderFrame {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  color: #fff;
+  width: 100%;
+}
+
+.CommonHeaderBar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5em;
+  padding: 10px;
+  background-color: #3a3b42;
+  color: #d7d8de;
+  border-bottom: 3px solid black;
+  width: 100%;
+}
+
+.CommonHeaderUserBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CommonHeaderUserName {
+  padding-left: 15px;
+  color: #7ccfff;
+}
+
+.AppTitle {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  color: #fff;
+}

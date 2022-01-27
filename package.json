@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "",
-    "dev": "NODE_ENV=dev nodemon --max-old-space-size=8192",
+    "dev": "set NODE_ENV=dev && nodemon --max-old-space-size=8192",
     "prestart": "npm run build",
     "start": "node ./build/index.js --max-old-space-size=8192",
     "test": "mocha --recursive",
@@ -20,16 +20,17 @@
   "author": "josh conlin",
   "license": "ISC",
   "devDependencies": {
-    "@types/hapi": "18.0.3",
+    "@types/hapi": "^18.0.3",
+    "@types/hapi__hapi": "^20.0.10",
     "@types/node": "13.7.0",
-    "@typescript-eslint/eslint-plugin": "2.18.0",
-    "@typescript-eslint/parser": "2.18.0",
-    "eslint": "6.8.0",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
+    "eslint": "^8.7.0",
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-prettier": "3.1.2",
     "husky": "3.0.9",
-    "mocha": "7.0.1",
-    "nodemon": "2.0.2",
+    "mocha": "^7.2.0",
+    "nodemon": "^2.0.2",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
     "ts-node": "8.6.2",
@@ -41,19 +42,20 @@
     }
   },
   "engines": {
-    "node": "13"
+    "node": "16"
   },
   "dependencies": {
-    "@hapi/hapi": "18.4.0",
+    "@hapi/hapi": "^18.4.1",
     "bcryptjs": "2.4.3",
     "good": "8.1.2",
     "good-console": "8.0.0",
     "good-file": "6.0.1",
     "good-squeeze": "5.1.0",
+    "hapi": "^18.1.0",
     "hapi-auth-jwt2": "8.8.1",
     "hapi-pino": "6.3.0",
     "joi": "14.3.1",
     "jsonwebtoken": "8.5.1",
-    "mongoose": "5.8.11"
+    "mongoose": "^5.13.14"
   }
 }

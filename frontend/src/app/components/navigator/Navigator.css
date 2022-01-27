@@ -1,0 +1,25 @@
+.NavigatorFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200px;
+}
+
+.NavigatorTitle {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.NavigatorButtonBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.NavigatorButton {
+  width: 275px;
+  padding-top: 10px;
+}

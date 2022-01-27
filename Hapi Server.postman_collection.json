@@ -1,175 +1,578 @@
 {
-  "info": {
-    "_postman_id": "cfc57741-6080-4e81-a9e3-3874a3e586d3",
-    "name": "Hapi Server",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Create User",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "<token_goes_here>",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"username\": \"{{user}}\",\n    \"password\": \"{{password}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:5000/user",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5000",
-          "path": ["user"],
-          "query": [
-            {
-              "key": "username",
-              "value": "test_user",
-              "disabled": true
-            },
-            {
-              "key": "password",
-              "value": null,
-              "disabled": true
-            }
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Authenticate",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"username\": \"{{user}}\",\n    \"password\": \"{{password}}\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/authenticate",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5000",
-          "path": ["authenticate"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Update User",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "<token_goes_here>",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"username\": \"{{$randomEmail}}\",\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomEmail}}\"\n}"
-        },
-        "url": {
-          "raw": "http://localhost:5000/user/{userId}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5000",
-          "path": ["user", "{userId}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete User",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "<token_goes_here>",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "DELETE",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": ""
-        },
-        "url": {
-          "raw": "http://localhost:5000/user/{userId}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5000",
-          "path": ["user", "{userId}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get User",
-      "request": {
-        "auth": {
-          "type": "bearer"
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:5000/user/{userId}",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5000",
-          "path": ["user", "{userId}"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "List Users",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "<token_goes_here>",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://localhost:5000/user",
-          "protocol": "http",
-          "host": ["localhost"],
-          "port": "5000",
-          "path": ["user"]
-        }
-      },
-      "response": []
-    }
-  ]
+	"info": {
+		"_postman_id": "674de0b3-b224-4937-8cb4-32149c44dd19",
+		"name": "PlexTrac Hapi Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const session = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has required properties\", function () {\r",
+							"    pm.expect(session.user).to.have.property('email');\r",
+							"    pm.expect(session.user).to.have.property('username');\r",
+							"    pm.expect(session.user).to.have.property('firstName');\r",
+							"    pm.expect(session.user).to.have.property('lastName');\r",
+							"    pm.expect(session).to.have.property('token');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"indy\",\n    \"password\": \"lostark\",\n    \"firstName\": \"Indiana\",\n    \"lastName\": \"Jones\",\n    \"email\": \"indy@fortunehunter.com\",\n    \"birthYear\": \"1957\",\n    \"favoriteColor\": \"gold\",\n    \"admin\": \"false\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/account/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"account",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "test_user",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const session = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has required properties\", function () {\r",
+							"    pm.expect(session.user).to.have.property('email');\r",
+							"    pm.expect(session.user).to.have.property('username');\r",
+							"    pm.expect(session.user).to.have.property('firstName');\r",
+							"    pm.expect(session.user).to.have.property('lastName');\r",
+							"    pm.expect(session).to.have.property('token');\r",
+							"});\r",
+							"\r",
+							"if (pm.test(\"Has required properties\")) {\r",
+							"    pm.globals.set('token', session.token);\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Global token has been set\", function() {\r",
+							"    var token = pm.globals.get('token');\r",
+							"    pm.expect(token).to.eql(session.token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"tony@avengers.com\",\n    \"password\": \"ironman\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/account/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"account",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"// response to be 200\r",
+							"pm.test(\"response is 200\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"pm.test('Has required properties', () => {\r",
+							"    pm.expect(data).to.be.an('object');\r",
+							"    pm.expect(data).to.have.property('n');\r",
+							"    pm.expect(data).to.have.property('nModified');\r",
+							"    pm.expect(data).to.have.property('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has expected response values\", () => {\r",
+							"    pm.expect(data.n).to.eql(1);\r",
+							"    pm.expect(data.nModified).to.eql(1);\r",
+							"    pm.expect(data.ok).to.eql(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"favoriteColor\": \"green\",\n    \"admin\": \"true\",\n    \"birthYear\": \"1980\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/user/<userid>",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"<userid>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"// response to be 200\r",
+							"pm.test(\"response is 200\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"pm.test('Has required properties', () => {\r",
+							"    pm.expect(data).to.be.an('object');\r",
+							"    pm.expect(data).to.have.property('_id');\r",
+							"    pm.expect(data).to.have.property('email');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has expected response values\", () => {\r",
+							"    var id = pm.request.url.path[1];\r",
+							"    pm.expect(data._id).to.eql(id);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/user/<userid>",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"<userid>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const user = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has required properties\", function () {\r",
+							"    pm.expect(user).to.have.property('_id');\r",
+							"    pm.expect(user).to.have.property('email');\r",
+							"    pm.expect(user).to.have.property('username');\r",
+							"    pm.expect(user).to.have.property('firstName');\r",
+							"    pm.expect(user).to.have.property('lastName');\r",
+							"    pm.expect(user).to.have.property('birthYear');\r",
+							"    pm.expect(user).to.have.property('favoriteColor');\r",
+							"    pm.expect(user).to.have.property('admin');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user/<userid>",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"<userid>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"// response to be 200\r",
+							"pm.test(\"response is 200\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"pm.test('Has required properties', () => {\r",
+							"    pm.expect(data).to.be.an(\"array\");\r",
+							"    data.forEach(obj => {\r",
+							"        pm.expect(obj).to.be.an('object');\r",
+							"        pm.expect(obj).to.have.property('_id');\r",
+							"        pm.expect(obj).to.have.property('email');\r",
+							"        pm.expect(obj).to.have.property('firstName');\r",
+							"        pm.expect(obj).to.have.property('lastName');\r",
+							"        pm.expect(obj).to.have.property('birthYear');\r",
+							"        pm.expect(obj).to.have.property('favoriteColor');\r",
+							"        pm.expect(obj).to.have.property('admin');\r",
+							"       });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const session = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has required properties\", function () {\r",
+							"    pm.expect(session.user).to.have.property('email');\r",
+							"    pm.expect(session.user).to.have.property('username');\r",
+							"    pm.expect(session.user).to.have.property('firstName');\r",
+							"    pm.expect(session.user).to.have.property('lastName');\r",
+							"    pm.expect(session).to.have.property('token');\r",
+							"});\r",
+							"\r",
+							"if (pm.test(\"Has required properties\")) {\r",
+							"    pm.globals.set('token', session.token);\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Global token has been set\", function() {\r",
+							"    var token = pm.globals.get('token');\r",
+							"    pm.expect(token).to.eql(session.token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"tstark\",\n    \"password\": \"ironman\",\n    \"firstName\": \"Tony\",\n    \"lastName\": \"Stark\",\n    \"email\": \"tony@avengers.com\",\n    \"birthYear\": \"1970\",\n    \"favoriteColor\": \"red\",\n    \"admin\": \"false\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/account/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"account",
+						"register"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "test_user",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const user = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Has required properties\", function () {\r",
+							"    pm.expect(user).to.have.property('_id');\r",
+							"    pm.expect(user).to.have.property('email');\r",
+							"    pm.expect(user).to.have.property('username');\r",
+							"    pm.expect(user).to.have.property('firstName');\r",
+							"    pm.expect(user).to.have.property('lastName');\r",
+							"    pm.expect(user).to.have.property('birthYear');\r",
+							"    pm.expect(user).to.have.property('favoriteColor');\r",
+							"    pm.expect(user).to.have.property('admin');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"\r",
+							"// response to be 200\r",
+							"pm.test(\"response is 200\", function() {\r",
+							"    pm.response.to.have.status(200)\r",
+							"});\r",
+							"\r",
+							"pm.test('Has required properties', () => {\r",
+							"    pm.expect(data).to.be.an('object');\r",
+							"    pm.expect(data).to.have.property('n');\r",
+							"    pm.expect(data).to.have.property('nModified');\r",
+							"    pm.expect(data).to.have.property('ok');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Has expected response values\", () => {\r",
+							"    pm.expect(data.n).to.eql(1);\r",
+							"    pm.expect(data.nModified).to.eql(1);\r",
+							"    pm.expect(data.ok).to.eql(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"tony@avengers.com\",\n    \"currentPassword\": \"ironman\",\n    \"newPassword\": \"ironman2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/account/resetpassword",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"account",
+						"resetpassword"
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }

@@ -1,6 +1,6 @@
-import { User } from "models/user";
-import bcrypt from "bcryptjs";
-import UserModel from "../models/users/user";
+import { User } from 'models/user';
+import bcrypt from 'bcryptjs';
+import UserModel from '../models/users/user';
 
 class UserRepository {
   private async hashPassword(password): Promise<string> {
@@ -18,14 +18,24 @@ class UserRepository {
   }
 
   public async update(update: User, userId: string): Promise<User> {
+    if (update.password && update.password !== '') {
+      const hashedPassword: string = await this.hashPassword(update.password);
+      update.password = hashedPassword;
+    }
+
     return new Promise((resolve, reject) => {
-      UserModel.update({ _id: userId }, update, (error, writeResult: User) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(writeResult);
+      UserModel.updateOne(
+        { _id: userId },
+        update,
+        undefined,
+        (error, writeResult: User) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(writeResult);
+          }
         }
-      });
+      );
     });
   }
 
@@ -45,9 +55,9 @@ class UserRepository {
     const password: string = await this.hashPassword(user.password);
     const $user = new UserModel({
       ...user,
-      password,
-      admin: false
+      password
     });
+    delete $user.password;
     return $user.save();
   }
 
@@ -60,10 +70,9 @@ class UserRepository {
           reject(`No user found with id: ${userId}`);
         } else {
           const user = users[0];
-          delete user.password;
           resolve(user);
         }
-      });
+      }).select('-password');
     });
   }
 
@@ -72,15 +81,12 @@ class UserRepository {
       UserModel.find({}, (error: Error, users: User[]) => {
         if (error) {
           reject(error);
-        } else if (!users.length) {
-          reject(`No user found with id`);
         } else {
-          users.forEach(user => {
-            delete user.password;
-          });
           resolve(users);
         }
-      });
+      })
+        .select('-password')
+        .sort({ lastName: 1 });
     });
   }
 
@@ -93,6 +99,24 @@ class UserRepository {
           resolve(userId);
         }
       });
+    });
+  }
+
+  public async resetPassword(userId: string, password: string): Promise<User> {
+    const hashedPassword: string = await this.hashPassword(password);
+    return new Promise((resolve, reject) => {
+      UserModel.updateOne(
+        { _id: userId },
+        { password: hashedPassword },
+        undefined,
+        (error, writeResult: User) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(writeResult);
+          }
+        }
+      );
     });
   }
 }
