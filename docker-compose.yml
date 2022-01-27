@@ -1,11 +1,56 @@
-version: "3.7"
+version: '3.7'
 services:
+  # Mongo DB service
   mongo:
     image: mongo:latest
     ports:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+    networks:
+      - userwebapp
+
+  # Backend API service
+  api:
+    image: plextrac_api:latest
+    container_name: api
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: src/Dockerfile
+    volumes:
+      - '.:/src'
+      - '/src/node_modules'
+    ports:
+      - 5000:5000
+    networks:
+      - userwebapp
+
+  # Frontend app service
+  frontend:
+    image: plextrac_frontend:latest
+    container_name: frontend
+    depends_on:
+      - api
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+    links:
+      - api
+    networks:
+      - userwebapp
 
 volumes:
   mongodb_data_container:
+
+networks:
+  userwebapp:
+    driver: bridge

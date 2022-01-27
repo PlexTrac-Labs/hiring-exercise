@@ -1,0 +1,51 @@
+.RegisterFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200px;
+}
+
+.RegisterTitle {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.RegisterForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.RegisterInput {
+  padding-bottom: 10px;
+}
+
+.RegisterButtonBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.RegisterButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.RegisterButtonSpacer {
+  min-width: 10px;
+}
+
+.ErrorMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #920000;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

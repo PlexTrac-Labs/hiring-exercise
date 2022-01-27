@@ -1,0 +1,54 @@
+.UserViewFrame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 200px;
+}
+
+.UserViewTitle {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.UserViewForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.UserViewField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px gray dashed;
+}
+
+.UserViewFieldLabel {
+  font-weight: bold;
+  width: 300px;
+}
+
+.UserViewFieldValue {
+  width: 300px;
+}
+
+.UserViewButtonBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.UserViewActionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UserViewButtonSpacer {
+  min-width: 10px;
+}

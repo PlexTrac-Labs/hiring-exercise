@@ -3,3 +3,8 @@ logs
 .idea/
 .vscode/
 build/
+keys/devKeys.js
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

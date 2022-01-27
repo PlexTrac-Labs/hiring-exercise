@@ -5,38 +5,38 @@ export const options = {
   reporters: {
     console: [
       {
-        module: "good-squeeze",
-        name: "Squeeze",
+        module: 'good-squeeze',
+        name: 'Squeeze',
         args: [
           {
-            log: "*",
-            response: "*"
+            log: '*',
+            response: '*'
           }
         ]
       },
       {
-        module: "good-console"
+        module: 'good-console'
       },
-      "stdout"
+      'stdout'
     ],
     file: [
       {
-        module: "good-squeeze",
-        name: "Squeeze",
+        module: 'good-squeeze',
+        name: 'Squeeze',
         args: [
           {
-            log: "*",
-            response: "*"
+            log: '*',
+            response: '*'
           }
         ]
       },
       {
-        module: "good-squeeze",
-        name: "SafeJson"
+        module: 'good-squeeze',
+        name: 'SafeJson'
       },
       {
-        module: "good-file",
-        args: ["./logs/server_log"]
+        module: 'good-file',
+        args: ['./logs/server_log']
       }
     ]
   }
